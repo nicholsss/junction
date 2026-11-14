@@ -1,0 +1,1514 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Review Receipt · HackJunction 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#F7F8FA;--card:#FFFFFF;--line:#E3E6EB;--text:#14181F;--muted:#5B6472;--accent:#2F4BCB;--accent-tint:#EBEFFD;
+  --ok:#00785A;--ok-bg:#E6F4EF;--bad:#C23B00;--bad-bg:#FBEAE2;--warn:#8A5A00;--warn-bg:#FFF3D6;
+  --link:#0066A8;--link-bg:#E4F0FA;--src:#4F5866;--src-bg:#EEF0F3;
+  --t-light:#D6E0FF;--t-standard:#8FA6F2;--t-full:#2F4BCB;
+  --radius:8px;--shadow:0 1px 2px rgba(20,24,31,.06),0 2px 8px rgba(20,24,31,.04);
+  --sans:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:76px}
+body{margin:0;background:var(--bg);color:var(--text);font:400 16px/1.55 var(--sans);-webkit-font-smoothing:antialiased}
+code,.mono{font-family:var(--mono);font-size:13px;font-variant-numeric:tabular-nums}
+code{background:var(--src-bg);border-radius:4px;padding:1px 5px;overflow-wrap:anywhere}
+h1{overflow-wrap:anywhere;font-size:28px;line-height:1.2;margin:.2em 0 .4em;font-weight:600;letter-spacing:-.01em}
+h2{font-size:20px;margin:0 0 .3em;font-weight:600}
+h3{font-size:16px;margin:0 0 .4em;font-weight:600}
+p{margin:.4em 0}
+a{color:var(--accent)}
+.muted{color:var(--muted)} .small{font-size:12px} .nowrap{white-space:nowrap}
+.overline{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:4px}
+.ic{width:14px;height:14px;flex:none}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+
+/* shell */
+.top{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top .in{max-width:1120px;margin:0 auto;padding:0 16px;height:56px;display:flex;align-items:center;gap:20px}
+.brand{font-weight:600;display:flex;gap:8px;align-items:center;white-space:nowrap}
+.brand i{width:10px;height:10px;border-radius:2px;background:var(--accent);display:inline-block}
+nav{display:flex;gap:4px;flex:1;min-width:0;overflow-x:auto}
+#open-principles{flex:none}
+nav a{white-space:nowrap;padding:8px 12px;border-radius:6px;color:var(--muted);text-decoration:none;font-weight:500;font-size:14px}
+nav a[aria-current=page]{color:var(--accent);background:var(--accent-tint)}
+nav a:hover{color:var(--text)}
+.wrap{max-width:1120px;margin:0 auto;padding:24px 16px 120px}
+.btn{font:500 14px var(--sans);padding:8px 14px;border:1px solid var(--line);background:#fff;border-radius:6px;cursor:pointer;color:var(--text);text-decoration:none;display:inline-block}
+.btn:hover{border-color:#c9ced6}
+.btn.primary,button.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+button.primary:disabled{background:#B7BFE3;border-color:#B7BFE3;cursor:not-allowed}
+.primarylink{font-weight:500}
+
+/* hero */
+.hero{padding:28px 0 8px}
+.hero h1{font-size:34px;max-width:860px}
+.hero.compact h1{font-size:28px;max-width:820px}
+.lede{color:var(--muted);max-width:760px;margin:.2em 0 1em}
+.lede.big{font-size:18px;color:#2a313c;line-height:1.55}
+.cta{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.sec{margin:36px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}
+.stack{display:grid;gap:12px}
+.twocol{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.banner{margin-top:12px;padding:10px 12px;border-radius:6px;background:var(--ok-bg);color:#064f3c;font-size:14px}
+.banner.stale{background:var(--bad-bg);color:#7a2500}
+.note{display:flex;gap:10px;margin-top:14px;padding:12px 14px;background:var(--accent-tint);border-radius:var(--radius);font-size:14px;color:#1b2a78;align-items:flex-start}
+.note .ic{margin-top:4px;width:16px;height:16px}
+.plainbox{margin-top:12px}.plainbox summary{cursor:pointer;color:var(--accent);font-weight:500}
+
+/* tables */
+.tablewrap{overflow-x:auto;margin-top:12px;border:1px solid var(--line);border-radius:var(--radius);background:#fff;box-shadow:var(--shadow)}
+table.grid{border-collapse:collapse;width:100%;font-size:14px}
+.grid th{text-align:left;font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);padding:10px 12px;border-bottom:1px solid var(--line);background:#FBFBFC;font-weight:600}
+.grid td{padding:12px;border-bottom:1px solid var(--line);vertical-align:top}
+.grid tr:last-child td{border-bottom:0}
+.grid td:first-child code{white-space:nowrap}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.cl{display:inline-flex;gap:6px;align-items:center;text-decoration:none}
+.origin{margin-left:8px;font-size:11px;padding:1px 6px;border-radius:99px;border:1px solid var(--line);color:var(--muted)}
+.o-stated{color:var(--ok);border-color:#b7dccd}
+.queue td:first-child code{white-space:nowrap}
+.queue td:nth-child(3) .tier{margin-right:2px}
+.to{display:inline-flex;vertical-align:middle;margin:0 4px;color:var(--muted)}
+
+/* chips and tiers */
+.chip{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;padding:3px 9px 3px 7px;border-radius:99px;white-space:nowrap}
+.s-verified{background:var(--ok-bg);color:var(--ok)}
+.s-contradicted{background:var(--bad-bg);color:var(--bad)}
+.s-unsupported{background:var(--warn-bg);color:var(--warn)}
+.s-needs_link_review{background:var(--link-bg);color:var(--link)}
+.s-source_only{background:var(--src-bg);color:var(--src)}
+.s-notrun{background:#fff;color:var(--muted);border:1px dashed #AEB5C0}
+.tier{display:inline-block;font-size:12px;font-weight:600;padding:3px 10px;border-radius:6px}
+.t-light{background:var(--t-light);color:#16206a}
+.t-standard{background:var(--t-standard);color:#0c1650}
+.t-full_read{background:var(--t-full);color:#fff}
+.tier.big{font-size:18px;padding:6px 14px;margin:2px 0 6px}
+.tag{display:inline-flex;gap:5px;align-items:center;font-size:12px;padding:2px 8px;border-radius:99px;background:var(--src-bg);color:var(--src);font-weight:500}
+.tag.warn{background:var(--warn-bg);color:var(--warn)} .tag.ask{background:var(--link-bg);color:var(--link)}
+.tag[data-state=decided]{background:var(--ok-bg);color:var(--ok)} .tag[data-state=stale]{background:var(--bad-bg);color:var(--bad)}
+.mini{display:inline-block;font-size:12px;font-weight:600;padding:2px 8px;border-radius:5px}
+
+/* stacked bar */
+.bar{display:flex;height:30px;border-radius:6px;overflow:hidden;gap:2px;margin:6px 0}
+.seg{display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;min-width:26px}
+.seg.t-light,.sw.t-light{background:var(--t-light);color:#16206a}
+.seg.t-standard,.sw.t-standard{background:var(--t-standard);color:#0c1650}
+.seg.t-full_read,.sw.t-full_read{background:var(--t-full);color:#fff}
+.seg.s-verified,.sw.s-verified{background:var(--ok);color:#fff}
+.seg.s-contradicted,.sw.s-contradicted{background:var(--bad);color:#fff}
+.seg.s-unsupported,.sw.s-unsupported{background:var(--warn);color:#fff}
+.seg.s-needs_link_review,.sw.s-needs_link_review{background:var(--link);color:#fff}
+.seg.s-source_only,.sw.s-source_only{background:var(--src);color:#fff}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-bottom:10px}
+.lg{display:inline-flex;align-items:center;gap:6px}
+.sw{width:10px;height:10px;border-radius:2px;display:inline-block}
+.barlabel{font-size:13px;font-weight:600;margin-top:10px}
+.big-n{font-size:15px;margin-top:10px}
+
+/* receipt layout */
+.rhead{padding:8px 0 4px}
+.meta{display:flex;gap:18px;flex-wrap:wrap;color:var(--muted);font-size:14px}
+.prov{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.rgrid{display:grid;grid-template-columns:280px minmax(0,1fr);gap:28px;align-items:start;margin-top:8px}
+.rail{position:sticky;top:76px;display:grid;gap:12px;max-height:calc(100vh - 250px);overflow:auto}
+.rules{list-style:none;padding:0;margin:4px 0 0;display:grid;gap:8px}
+.rules li{font-size:13px;border-left:3px solid var(--t-standard);padding-left:10px}
+.rule{display:block;font-weight:500}.obs{display:block;color:var(--muted);font-family:var(--mono);font-size:12px}
+.limits ul{padding-left:18px;margin:4px 0;font-size:13px;color:#2a313c}
+.main .sec:first-child{margin-top:12px}
+.focus{list-style:none;padding:0;margin:8px 0;display:grid;gap:8px}
+.path{overflow-wrap:anywhere;margin-top:4px}
+.focus li{min-width:0;overflow-wrap:anywhere;display:grid;grid-template-columns:minmax(0,230px) minmax(0,1fr);gap:12px;background:#fff;border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:var(--radius);padding:10px 12px;font-size:14px}
+.where{background:var(--accent-tint);color:#1b2a78}
+
+/* claims */
+.claims{display:grid;grid-template-columns:minmax(0,1fr);gap:8px;margin-top:8px}
+.claim{min-width:0;overflow-wrap:anywhere;background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+.claim summary{list-style:none;display:grid;grid-template-columns:auto auto minmax(0,1fr) auto;gap:10px;align-items:center;padding:12px;cursor:pointer}
+.claim summary::-webkit-details-marker{display:none}
+.claim[open] summary{border-bottom:1px solid var(--line)}
+.ctext{font-size:15px}.kind{font-size:12px;color:var(--muted)}
+.claimbody{padding:14px 12px}
+.chain{list-style:none;display:grid;gap:0;padding:0;margin:0 0 12px;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.chain>li{display:grid;grid-template-columns:120px minmax(0,1fr);gap:12px;padding:10px 12px;font-size:13px;background:var(--bg);align-items:start}
+.chain>li+li{border-top:1px solid var(--line)}
+.chain>li>.overline{margin:2px 0 0}
+.chain p{margin:0}
+.plain,.tests{list-style:none;padding:0;margin:0;display:grid;gap:6px}
+.minis{display:flex;gap:4px;flex-wrap:wrap;margin-top:4px}
+.why{font-size:14px;margin-top:8px}.why p{margin:2px 0;color:#2a313c}
+
+/* ftp */
+.ftp td,.ftp th{text-align:left}
+.ftp th{white-space:nowrap}.ftp td:first-child{width:46%}.ftp td:first-child code{white-space:normal}
+
+/* checks */
+.checks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:8px}
+.chead{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:6px}
+.check h3{font-size:15px}
+.kv{display:grid;grid-template-columns:70px 1fr;gap:8px;font-size:13px;margin-top:6px}
+.kv>span:first-child{color:var(--muted)}
+.kv code{font-size:12px}
+
+/* findings and refusals */
+textarea,input[type=text]{font:inherit;font-size:14px;border:1px solid #C9CED6;border-radius:6px;padding:8px 10px;width:100%;background:#fff;color:var(--text)}
+textarea{resize:vertical}
+.ans{display:block;margin-top:10px;font-size:13px;font-weight:500}
+.ans textarea{margin-top:4px}
+fieldset{border:0;margin:0;padding:0}
+legend{font-size:12px;color:var(--muted);padding:0;margin-bottom:4px;font-weight:500}
+.seg3{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:10px}
+.seg3 legend{width:100%}
+.seg3 label{display:inline-flex;gap:6px;align-items:center;font-size:14px;cursor:pointer}
+.refusal.done{border-color:#b7dccd}.finding.done{border-color:#b7dccd}
+.field-error{color:var(--bad);font-size:13px;line-height:1.45;margin:4px 0 0;font-weight:500}
+select[aria-invalid=true],input[aria-invalid=true]{border-color:var(--bad);box-shadow:0 0 0 1px var(--bad)}
+.refusal.invalid,.finding.invalid{border-color:var(--bad)}
+.seg3.invalid legend{color:var(--bad)}
+.unknowns{list-style:none;padding:0;margin:8px 0 0;display:grid;gap:8px}
+.unknowns label{display:flex;gap:8px;align-items:flex-start;flex-wrap:wrap}
+.unknowns .field-error{flex-basis:100%;margin-left:24px}
+.linkish{background:none;border:0;padding:0;margin:0 0 8px;font:500 13px var(--sans);color:var(--accent);text-decoration:underline;cursor:pointer}
+.card,.sec{scroll-margin-top:84px}
+
+/* flow */
+.flow{list-style:none;padding:0;margin:12px 0 0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+.step{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:12px;display:grid;gap:6px;font-size:13px;box-shadow:var(--shadow)}
+.step .num{width:22px;height:22px;border-radius:50%;background:var(--accent-tint);color:var(--accent);font-weight:600;display:grid;place-items:center;font-size:12px}
+.step p{margin:2px 0 8px;color:var(--muted)}
+.st-manual{border-style:dashed}
+
+/* measurement */
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.metric .num{font-size:22px;font-weight:600;margin:4px 0;font-variant-numeric:tabular-nums}
+
+/* decision bar */
+.decision pre{white-space:pre-wrap;overflow-wrap:anywhere}
+.decision{position:sticky;bottom:0;z-index:15;margin:32px -16px 0;background:#fff;border-top:1px solid var(--line);box-shadow:0 -4px 16px rgba(20,24,31,.08);padding:8px 16px}
+.dstate{font-size:13px;color:var(--muted);margin-bottom:8px}
+.dstate.ready{color:var(--ok);font-weight:500}
+.drow{display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap}
+.drow label{font-size:12px;font-weight:500;color:var(--muted);display:grid;gap:4px;min-width:170px}
+.drow .grow{flex:1;min-width:220px}
+.drow fieldset.seg3{margin:0}
+.drow fieldset.seg3 label{display:inline-flex;color:var(--text);font-size:14px;font-weight:400;min-width:0}
+.drow button{padding:9px 16px;border-radius:6px;border:1px solid var(--accent);font:500 14px var(--sans);cursor:pointer}
+.dfoot{font-size:12px;color:var(--muted);margin-top:8px}
+dialog{border:1px solid var(--line);border-radius:12px;padding:20px;max-width:560px;box-shadow:0 12px 40px rgba(20,24,31,.25)}
+dialog::backdrop{background:rgba(20,24,31,.4)}
+.dbtns{display:flex;gap:8px;justify-content:flex-end;margin-top:16px}
+.dbtns button{font:500 14px var(--sans);padding:8px 14px;border-radius:6px;border:1px solid var(--line);background:#fff;cursor:pointer}
+.sheet{max-width:720px;width:calc(100% - 32px);max-height:85vh;overflow:auto}
+.sheethead{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.sheet ol,.sheet ul{padding-left:20px;font-size:14px}.sheet li{margin:6px 0}
+.foot{margin-top:40px;color:var(--muted);font-size:12px}
+
+.js .view[hidden]{display:none}
+@media (max-width:900px){
+  .rgrid{grid-template-columns:minmax(0,1fr)}.rail{position:static;max-height:none;overflow:visible}
+  .decision{position:static;margin:24px 0 0;border:1px solid var(--line);border-radius:8px}
+  .drow label,.drow .grow{min-width:100%}.drow button{width:100%}
+  .wrap{padding-bottom:40px}
+  .twocol,.checks,.metrics{grid-template-columns:1fr}
+  .chain>li{grid-template-columns:1fr;gap:2px}
+  .flow{grid-template-columns:1fr}
+  .hero h1{font-size:26px}.focus li{grid-template-columns:minmax(0,1fr)}
+  .claim summary{grid-template-columns:auto 1fr}.claim .ctext{grid-column:1/-1}.claim .kind{display:none}
+  .top .in{gap:8px}.brand span{display:none}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@media print{.top,.decision{display:none}}
+
+/* Focused reference workspace */
+.intent{margin-top:24px}.review-signals{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:20px 0}
+.signal{border-top:3px solid var(--ok)}.signal.uncertainty{border-color:var(--warn)}
+.signal p{font-size:14px}.signal .btn{margin-top:10px}
+.risk-workspace{background:#fff;border:1px solid var(--line);border-radius:12px;padding:24px}
+.risk-workspace>.overline{color:var(--bad)}
+.impact-strip{display:flex;align-items:center;gap:12px;margin:20px 0 8px;font-size:13px}
+.impact-strip span{flex:1;padding:12px;background:var(--src-bg);border-radius:6px}
+.code-heading{display:flex;justify-content:space-between;gap:12px;margin:20px 0 8px;font-size:12px;color:var(--muted)}
+.diff{background:#f8fafc;border:1px solid var(--line);border-radius:6px;max-height:360px;overflow:auto;padding:12px;font:12px/1.7 var(--mono);tab-size:4}
+.diffline{display:block;min-width:max-content}.diffline.add{background:#dcf3e7;color:#145735}.diffline.remove{background:#ffe3df;color:#8d2721}
+.risk-evidence{border-left:3px solid var(--warn);padding:12px;font-size:14px;background:var(--warn-bg)}
+.code-detail{margin:16px 0}.code-detail summary,.audit>summary{cursor:pointer;font-weight:500;padding:8px 0}
+.license-text{white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px}.confidence-note{font-size:14px}.confidence-note p{color:var(--muted)}
+#refused{margin:16px 0}.refusal h3{margin-top:8px}.refusal p{font-size:14px}
+#refused .stack{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+select{display:block;width:100%;min-width:0;margin-top:8px;padding:10px;border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--text);font:14px var(--sans)}
+.decision{position:static;margin:24px 0;padding:24px;border:1px solid var(--line);border-radius:12px;box-shadow:none}
+.decision>p{font-size:14px}.audit{margin:32px 0;border-top:1px solid var(--line);padding-top:16px}
+.audit .rail{position:static;max-height:none;grid-template-columns:1fr 1fr;overflow:visible}
+@media(max-width:700px){.review-signals,#refused .stack,.audit .rail{grid-template-columns:1fr}.risk-workspace,.decision{padding:16px}.impact-strip{flex-direction:column;align-items:stretch}.impact-strip>b{transform:rotate(90deg);align-self:center}.code-heading{flex-direction:column}.diff{max-height:300px}.top .in{gap:6px}.brand{font-size:13px}#open-principles{display:none}nav a{font-size:12px;padding:8px}.wrap{padding-bottom:32px}.drow{flex-direction:column;align-items:stretch;gap:14px}.drow label,.drow .grow,.drow button,.drow .btn{width:100%;min-width:0}.drow fieldset.seg3{flex-direction:column;align-items:flex-start;gap:10px}.drow fieldset.seg3 label{width:auto;min-height:24px;padding:4px 0}.unknowns label{padding:8px 0}.card,.sec{scroll-margin-top:96px}}
+</style>
+</head>
+<body>
+<div class="top"><div class="in">
+  <div class="brand"><i></i><span>Review Receipt</span></div>
+  <nav aria-label="Views"><a href="#receipt" data-view="receipt">Review R2283</a><a href="#queue" data-view="queue">Concept &amp; samples</a><a href="#measurement" data-view="measurement">Evidence &amp; lessons</a></nav>
+  <button type="button" class="btn" id="open-principles">Principles and limits</button>
+</div></div>
+<main class="wrap">
+
+<section class="view" id="view-queue" hidden>
+  <div class="hero">
+    <div class="overline">HackJunction 2026 · Earned trust in AI code</div>
+    <h1>Do not ask humans to trust the AI reviewer. Ask them to trust evidence they can check.</h1>
+    <p class="lede big">For each agent-written change, the AI reviewer produces a <b>receipt</b>: what was claimed, what actually ran, what the AI refused to decide, and how deeply a human should look. A named engineer decides. The decision is bound to the exact head commit.</p>
+    <div class="cta"><a class="btn primary" href="#receipt">Open the R2283 receipt</a><button type="button" class="btn" data-open-dialog="principles">Principles, trade-offs and limits</button></div>
+  </div>
+  <section class="sec">
+    <h2>The queue</h2>
+    <p class="lede">Four sample agent-written changes in our demo environment. Review Receipt is our HackJunction 2026 project; the supplied code is demo material. Triage uses only the requirement quality and the diff shape. A receipt can raise a tier once evidence is in: R2283 looked light, then a contradicted claim and two open questions moved it to standard.</p>
+    <div class="card"><div class="barlabel">Triage, before any AI call</div><div class="bar" role="img" aria-label="Triage routing: Light 1, Standard 1, Full read 2"><span class="seg t-light" style="flex:1 1 0" title="Light: 1">1</span><span class="seg t-standard" style="flex:1 1 0" title="Standard: 1">1</span><span class="seg t-full_read" style="flex:2 1 0" title="Full read: 2">2</span></div><div class="legend"><span class="lg"><i class="sw t-light"></i>Light 1</span><span class="lg"><i class="sw t-standard"></i>Standard 1</span><span class="lg"><i class="sw t-full_read"></i>Full read 2</span></div><div class="barlabel">After evidence (only R2283 has a receipt)</div><div class="bar" role="img" aria-label="Routing after evidence: Standard 2, Full read 2"><span class="seg t-standard" style="flex:2 1 0" title="Standard: 2">2</span><span class="seg t-full_read" style="flex:2 1 0" title="Full read: 2">2</span></div><div class="legend"><span class="lg"><i class="sw t-standard"></i>Standard 2</span><span class="lg"><i class="sw t-full_read"></i>Full read 2</span></div>
+      <p class="muted small">2 of 4 changes need a full read at triage. Thresholds are untuned guesses (the 400-line limit especially).</p>
+    </div>
+    <div class="tablewrap"><table class="grid queue">
+      <thead><tr><th>Change</th><th>Requirement</th><th>Review depth</th><th>Why</th><th>State</th><th>PR / status</th><th>Owner</th></tr></thead>
+      <tbody>
+<tr>
+  <td><code>R2283</code><div class="muted small"><code>9df83c38</code></div></td>
+  <td><b>Generator and analyzer crash on a closed generic struct from a referenced assembly</b><div class="muted small">Requirement: strong. Repro, expected behaviour and trigger matrix in the issue.</div></td>
+  <td class="nowrap"><span class="tier t-light">Light</span><span class="to"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></span><span class="tier t-standard">Standard</span></td>
+  <td>strong requirement and a small source change<div class="muted small">29 source · 189 tests · 10 docs lines</div></td>
+  <td><a class="primarylink" href="#receipt">Receipt built, pending</a></td>
+  <td><a href="https://github.com/nicholsss/junction26-messagepack-csharp/pull/1">PR #1</a><div class="muted small">pending</div></td>
+  <td><span class="muted">Not assigned</span></td>
+</tr>
+<tr>
+  <td><code>R2234</code><div class="muted small"><code>9007cee1</code></div></td>
+  <td><b>Analyzer does not work with SuppressSourceGeneration</b><div class="muted small">Requirement: weak. One-sentence report, no expected behaviour.</div></td>
+  <td class="nowrap"><span class="tier t-standard">Standard</span></td>
+  <td>weak requirement<div class="muted small">22 source · 230 tests · 14 docs lines</div></td>
+  <td><span class="muted">Triage only</span></td>
+  <td><a href="https://github.com/nicholsss/junction26-messagepack-csharp/pull/2">PR #2</a><div class="muted small">pending</div></td>
+  <td><span class="muted">Not assigned</span></td>
+</tr>
+<tr>
+  <td><code>R2129</code><div class="muted small"><code>083afd99</code></div></td>
+  <td><b>Generate a formatter for a type in a referenced assembly</b><div class="muted small">Requirement: contested. Maintainer proposed surrogate types; design alignment unchecked.</div></td>
+  <td class="nowrap"><span class="tier t-full_read">Full read</span></td>
+  <td>contested requirement; 458 changed source lines (limit 400)<div class="muted small">458 source · 422 tests · 163 docs lines</div></td>
+  <td><span class="muted">Triage only</span></td>
+  <td><a href="https://github.com/nicholsss/junction26-messagepack-csharp/pull/3">PR #3</a><div class="muted small">pending</div></td>
+  <td><span class="muted">Not assigned</span></td>
+</tr>
+<tr>
+  <td><code>R2297</code><div class="muted small"><code>a0aa5ab2</code></div></td>
+  <td><b>ExcludeFromCodeCoverage on generated code</b><div class="muted small">Requirement: open decision. Maintainer has not said whether the feature is wanted.</div></td>
+  <td class="nowrap"><span class="tier t-full_read">Full read</span></td>
+  <td>open product decision: a human decides whether it is wanted<div class="muted small">49 source · 130 tests · 3 docs · 1210 generated lines</div></td>
+  <td><span class="muted">Triage only</span></td>
+  <td><a href="https://github.com/nicholsss/junction26-messagepack-csharp/pull/4">PR #4</a><div class="muted small">pending</div></td>
+  <td><span class="muted">Not assigned</span></td>
+</tr></tbody>
+    </table></div>
+  </section>
+  <section class="sec">
+    <h2>Where this sits in a pull-request flow</h2>
+    <p class="lede">The receipt replaces “read the whole diff” with “check the evidence, then decide”. This is what is built today.</p>
+    <ol class="flow"><li class="step st-built"><div class="num">1</div><div><b>Agent opens a pull request</b><p>A change arrives with a requirement ID.</p><span class="tag">Built</span> <span class="muted small">Four demo PRs, each based on the AI commit’s parent.</span></div></li><li class="step st-partial"><div class="num">2</div><div><b>Harness runs the checks</b><p>Only the harness writes check results.</p><span class="tag">Partly built</span> <span class="muted small">Results recorded from scripts in evidence/. No runner yet.</span></div></li><li class="step st-built"><div class="num">3</div><div><b>Model proposes, engine decides</b><p>DeepSeek proposes claims; the engine computes each status.</p><span class="tag">Built</span> <span class="muted small">Built, run on R2283.</span></div></li><li class="step st-built"><div class="num">4</div><div><b>Rules route attention</b><p>Named rules set the depth and the places to read.</p><span class="tag">Built</span> <span class="muted small">Built.</span></div></li><li class="step st-built"><div class="num">5</div><div><b>A named human decides</b><p>Accept listed risks, request changes, or escalate, bound to the head SHA.</p><span class="tag">Built</span> <span class="muted small">CLI reads the human’s PR comment and sets a status for that head. Run manually; no event automation.</span></div></li></ol>
+  </section>
+</section>
+<section class="view" id="view-receipt">
+
+<header class="rhead">
+  <div class="overline">HackJunction 2026 · reference implementation · R2283</div>
+  <h1>Review the risk. Inspect the evidence. Own the decision.</h1>
+  <p class="muted">Automate repeatable checks; focus human attention where the change needs judgment.</p>
+  <div class="meta">
+    <span>Base <code>32258fdb</code></span>
+    <span>Head <code>9df83c38</code></span>
+    <span><a href="https://github.com/nicholsss/junction/blob/main/docs/DEMO_REQUIREMENTS.md#r2283">Demo requirement</a></span>
+  </div>
+  <div class="prov">
+    <span class="tag">Checks: real runs, 2026-11-14</span>
+    <span class="tag">Claims: model-proposed</span>
+    <span class="tag" id="decision-tag" data-state="pending"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Decision: pending, no one has signed</span></span>
+  </div>
+  <div id="decision-banner" class="banner" hidden></div>
+</header>
+
+<section class="sec" id="brief">
+  <h2>Decision brief</h2>
+  <p class="lede">What the change is for, what the recorded evidence supports, and what remains risky or unknown. Provenance separates harness observations, AI interpretation and our connective explanation. None of it is a human decision.</p>
+  <div class="glance"><b>2 of 8</b> AI claims are test-backed; 1 contradicted, 1 unsupported, 4 source only. The patch suite recorded <b>170 passed of 170</b> tests (<code>CHK2</code>); on base source, <b>3 failed of 170</b> (<code>CHK3</code>, expected failure).</div>
+  <div class="briefgroup"><div class="overline">Requirement intent</div><ul class="brief"><li class="brief-item"><span class="provtag p-team"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Team explanation</span><span>The change is meant to stop the generator and analyzer crash for a closed generic value type coming from a referenced assembly, while leaving the other trigger-matrix shapes as they were.</span><span class="briefrefs"><a href="#coverage" data-open="coverage"><code>AC1</code></a> <a href="#coverage" data-open="coverage"><code>AC2</code></a> <a href="#coverage" data-open="coverage"><code>AC3</code></a></span></li></ul></div><div class="briefgroup"><div class="overline">What the evidence supports</div><ul class="brief"><li class="brief-item"><span class="provtag p-harness"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Harness observation</span><span>The AI&#x27;s new regression tests fail on the base source and pass on the patch. The full recorded generator suite passes on the patch.</span><span class="briefrefs"><a href="#check-CHK2" data-open="check-CHK2"><code>CHK2</code></a> <a href="#check-CHK3" data-open="check-CHK3"><code>CHK3</code></a></span></li><li class="brief-item"><span class="provtag p-harness"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Harness observation</span><span>The existing generator suite also passed on the base commit, so the patch did not start from a broken baseline.</span><span class="briefrefs"><a href="#check-CHK1" data-open="check-CHK1"><code>CHK1</code></a></span></li></ul></div><div class="briefgroup"><div class="overline">Material risks</div><ul class="brief"><li class="brief-item"><span class="provtag p-model"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>AI interpretation</span><span>The AI says the patch only reports a diagnostic when its location belongs to the compilation being analyzed, so diagnostics for members declared in referenced assemblies are dropped.</span><span class="briefrefs"><a href="#claim-CLM1" data-open="claim-CLM1"><code>CLM1</code></a> <a href="#claim-CLM2" data-open="claim-CLM2"><code>CLM2</code></a></span></li><li class="brief-item"><span class="provtag p-harness"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Harness observation</span><span>A local hand-applied crash-only comparison still reports MsgPack004 diagnostics for an unkeyed member of a referenced structure; the AI patch reports none for that test.</span><span class="briefrefs"><a href="#check-CHK4" data-open="check-CHK4"><code>CHK4</code></a> <a href="#claim-CLM7" data-open="claim-CLM7"><code>CLM7</code></a></span></li><li class="brief-item"><span class="provtag p-team"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Team explanation</span><span>The suppression policy is not requested by the requirement, and whether it changes diagnostics in other consumer scenarios was not checked.</span><span class="briefrefs"><a href="#claim-CLM2" data-open="claim-CLM2"><code>CLM2</code></a> <a href="#check-CHK4" data-open="check-CHK4"><code>CHK4</code></a> <a href="#refusal-REF1" data-open="refusal-REF1"><code>REF1</code></a> <a href="#unknown-UNK2" data-open="unknown-UNK2"><code>UNK2</code></a></span></li><li class="brief-item"><span class="provtag p-team"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Team explanation</span><span>The README and MsgPack004 documentation say diagnostics for referenced types are reported by the defining assembly. That holds only if that dependency runs the analyzer, which was not checked.</span><span class="briefrefs"><a href="#finding-OOR1" data-open="finding-OOR1"><code>OOR1</code></a> <a href="#finding-OOR2" data-open="finding-OOR2"><code>OOR2</code></a> <a href="#refusal-REF2" data-open="refusal-REF2"><code>REF2</code></a></span></li></ul></div><div class="briefgroup"><div class="overline">Limits</div><ul class="brief"><li class="brief-item"><span class="provtag p-harness"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Harness observation</span><span>The crash-only comparison is our hand-applied approximation of the reference fix, not a run of that reference patch.</span><span class="briefrefs"><a href="#check-CHK4" data-open="check-CHK4"><code>CHK4</code></a></span></li><li class="brief-item"><span class="provtag p-team"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Team explanation</span><span>The two-project build reproduction was not run, so the requirement is not confirmed end to end outside the test harness.</span><span class="briefrefs"><a href="#check-CHK5" data-open="check-CHK5"><code>CHK5</code></a> <a href="#unknown-UNK1" data-open="unknown-UNK1"><code>UNK1</code></a></span></li></ul></div><div class="briefgroup"><div class="overline">How reliable are the AI&#x27;s claims?</div><ul class="brief"><li class="brief-item"><span class="provtag p-team"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Team explanation</span><span>One AI claim is contradicted because a cited comparison probe expected the opposite outcome, and one is unsupported because a single named test does not match the recorded runs. Neither classification by itself shows that the claim&#x27;s prose is false.</span><span class="briefrefs"><a href="#claim-CLM7" data-open="claim-CLM7"><code>CLM7</code></a> <a href="#claim-CLM8" data-open="claim-CLM8"><code>CLM8</code></a></span></li><li class="brief-item"><span class="provtag p-team"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Team explanation</span><span>The model originally listed the BothStringAndIntKeyAreNull change as outside the crash fix. The recorded diff shows it is one of the two live unsafe declaration-reference sites the patch replaces, so that item was withdrawn; the raw proposal is preserved.</span><span class="briefrefs"><a href="#claim-CLM4" data-open="claim-CLM4"><code>CLM4</code></a></span></li></ul></div>
+  <div class="note"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg><span><b>No trust or hallucination score.</b> Mechanical claim classifications are evidence links, not semantic verdicts. A real citation can still support a wrong interpretation, and a passing test can miss a defect.</span></div>
+</section>
+
+<section class="sec" id="refused">
+  <h2>Arguments the AI leaves to you</h2>
+  <p class="lede">Each position records a decision effect. Acceptance needs a position compatible with acceptance; a position that requires changes or an owner cannot be combined with accepting.</p>
+  <div class="stack">
+<article class="card refusal" id="refusal-REF1" data-refusal="REF1">
+  <div class="chead"><code>REF1</code><span class="tag ask">The AI refused to decide</span></div>
+  <h3>Should the analyzer silently suppress diagnostics for members declared in referenced assemblies, or should it surface them in some other way (e.g. a single informational diagnostic on the consuming type)?</h3>
+  <p><b>Why it refused.</b> This is a product/UX decision about analyzer behavior that the requirement does not specify; the change picks suppression.</p>
+
+
+  <label class="ans">Your position, required only to accept
+    <select name="ans-REF1" aria-describedby="err-REF1"><option value="">Choose a position…</option><option value="ref1_accept_suppression">Accept suppression of diagnostics from referenced code for this change. [accept compatible]</option><option value="ref1_require_visible">Require a visible diagnostic or a narrower crash-only fix. [changes required]</option><option value="ref1_owner_judgement">Needs a source-generator owner to judge the diagnostic policy. [escalation required]</option></select>
+  </label>
+  <p class="field-error" id="err-REF1" hidden></p>
+  <label class="ans">Optional note for the record
+    <input type="text" name="note-REF1" data-note-for="REF1" placeholder="Optional context; leave blank if none">
+  </label>
+</article>
+<article class="card refusal" id="refusal-REF2" data-refusal="REF2">
+  <div class="chead"><code>REF2</code><span class="tag ask">The AI refused to decide</span></div>
+  <h3>Is the README and doc/analyzers/MsgPack004.md wording about diagnostics being reported by the defining assembly accurate for all consumers (e.g. when the referenced assembly was built without the analyzer)?</h3>
+  <p><b>Why it refused.</b> Documentation accuracy for scenarios outside the test harness is a judgment call for the owner.</p>
+
+
+  <label class="ans">Your position, required only to accept
+    <select name="ans-REF2" aria-describedby="err-REF2"><option value="">Choose a position…</option><option value="ref2_accept_limitation">Accept the documentation assumption as an explicit limitation for this change. [accept compatible]</option><option value="ref2_require_qualification">Require the documentation to qualify the analyzer assumption. [changes required]</option><option value="ref2_owner_judgement">Needs a documentation owner to judge accuracy for consumers. [escalation required]</option></select>
+  </label>
+  <p class="field-error" id="err-REF2" hidden></p>
+  <label class="ans">Optional note for the record
+    <input type="text" name="note-REF2" data-note-for="REF2" placeholder="Optional context; leave blank if none">
+  </label>
+</article></div>
+</section>
+
+<section class="sec" id="found">
+  <h2>What the AI found outside the requirement</h2>
+  <p class="lede">A scope concern is not automatically a defect. Accept the scope, require a change, or route it to an owner. Acceptance requires <b>Accept scope</b> for every item; the other outcomes do not.</p>
+  <div class="stack">
+<article class="card finding" id="finding-OOR1" data-finding="OOR1">
+  <div class="chead"><code>OOR1</code><span class="tag warn">Outside the requirement</span></div>
+  <p>Adds a &#x27;Generic types from referenced assemblies&#x27; section to README.md (lines 1639-1642).</p>
+  <div class="muted small">Evidence: none recorded</div>
+  <fieldset class="seg3" aria-describedby="err-OOR1"><legend>Your position, required only to accept</legend><label><input type="radio" name="find-OOR1" value="accept_scope"> Accept scope<span class="muted small">The extra change is acceptable for this decision.</span></label><label><input type="radio" name="find-OOR1" value="change_required"> Change required<span class="muted small">This change should not be accepted as it stands.</span></label><label><input type="radio" name="find-OOR1" value="needs_owner"> Needs owner judgement<span class="muted small">A code or domain owner must judge this scope.</span></label></fieldset>
+  <p class="field-error" id="err-OOR1" hidden></p>
+  <label class="ans">Optional note for the record
+    <input type="text" name="note-OOR1" data-note-for="OOR1" placeholder="Optional context; leave blank if none">
+  </label>
+</article>
+<article class="card finding" id="finding-OOR2" data-finding="OOR2">
+  <div class="chead"><code>OOR2</code><span class="tag warn">Outside the requirement</span></div>
+  <p>Adds a &#x27;Types from referenced assemblies&#x27; section to doc/analyzers/MsgPack004.md (lines 49-52).</p>
+  <div class="muted small">Evidence: none recorded</div>
+  <fieldset class="seg3" aria-describedby="err-OOR2"><legend>Your position, required only to accept</legend><label><input type="radio" name="find-OOR2" value="accept_scope"> Accept scope<span class="muted small">The extra change is acceptable for this decision.</span></label><label><input type="radio" name="find-OOR2" value="change_required"> Change required<span class="muted small">This change should not be accepted as it stands.</span></label><label><input type="radio" name="find-OOR2" value="needs_owner"> Needs owner judgement<span class="muted small">A code or domain owner must judge this scope.</span></label></fieldset>
+  <p class="field-error" id="err-OOR2" hidden></p>
+  <label class="ans">Optional note for the record
+    <input type="text" name="note-OOR2" data-note-for="OOR2" placeholder="Optional context; leave blank if none">
+  </label>
+</article></div>
+</section>
+
+<section class="sec" id="unknowns">
+  <h2>Residual unknowns</h2>
+  <p class="lede">Acknowledge each unknown by ID to accept. Requesting changes and escalating do not require acknowledgements. Acknowledgement records that you saw the limitation; it does not make it go away.</p>
+  <ul class="unknowns"><li id="unknown-UNK1" data-unknown="UNK1"><label><input type="checkbox" name="unk-UNK1" aria-describedby="err-UNK1"> <b>UNK1</b> CHK5 (the two-project dotnet build repro) was not run, so AC1 and AC3 are not confirmed end to end outside the test harness.<span class="field-error" id="err-UNK1" hidden></span></label></li><li id="unknown-UNK2" data-unknown="UNK2"><label><input type="checkbox" name="unk-UNK2" aria-describedby="err-UNK2"> <b>UNK2</b> Whether the analyzer-suppression wrapper changes observable diagnostics for any existing consumer scenario beyond the tests listed was not checked.<span class="field-error" id="err-UNK2" hidden></span></label></li></ul>
+</section>
+
+<section class="sec" id="classifications">
+  <h2>How reliable are the AI's claims?</h2>
+  <p class="lede">These are <b>evidence-linkage classifications</b>, not a trust score or a hallucination count. <b>Test-backed</b> means a named test ran with the expected outcome; relevance is not proven. <b>Contradicted</b> means a linked outcome conflicted with its configured expectation. <b>Unsupported</b> means cited executed evidence is absent or insufficient, so the claim is unproven, not proven false. <b>Source only</b> means the cited range resolves; runtime behaviour is not established.</p>
+  <div class="bar" role="img" aria-label="Claims by evidence classification: Test-backed 2, Contradicted 1, Unsupported 1, Source only 4"><span class="seg s-verified" style="flex:2 1 0" title="Test-backed: 2">2</span><span class="seg s-contradicted" style="flex:1 1 0" title="Contradicted: 1">1</span><span class="seg s-unsupported" style="flex:1 1 0" title="Unsupported: 1">1</span><span class="seg s-source_only" style="flex:4 1 0" title="Source only: 4">4</span></div><div class="legend"><span class="lg"><i class="sw s-verified"></i>Test-backed 2</span><span class="lg"><i class="sw s-contradicted"></i>Contradicted 1</span><span class="lg"><i class="sw s-unsupported"></i>Unsupported 1</span><span class="lg"><i class="sw s-source_only"></i>Source only 4</span></div>
+  <div class="tablewrap"><table class="grid">
+    <thead><tr><th>ID</th><th>Classification</th><th>Exact engine reason</th></tr></thead>
+    <tbody><tr><td><a class="cl" href="#claim-CLM1" data-open="claim-CLM1"><code>CLM1</code></a></td><td><span class="chip s-source_only"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>Source only</span></td><td>The citation resolves. The claim describes code; no executed check is needed or implied.</td></tr><tr><td><a class="cl" href="#claim-CLM2" data-open="claim-CLM2"><code>CLM2</code></a></td><td><span class="chip s-source_only"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>Source only</span></td><td>The citation resolves. The claim describes code; no executed check is needed or implied.</td></tr><tr><td><a class="cl" href="#claim-CLM3" data-open="claim-CLM3"><code>CLM3</code></a></td><td><span class="chip s-source_only"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>Source only</span></td><td>The citation resolves. The claim describes code; no executed check is needed or implied.</td></tr><tr><td><a class="cl" href="#claim-CLM4" data-open="claim-CLM4"><code>CLM4</code></a></td><td><span class="chip s-source_only"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>Source only</span></td><td>The citation resolves. The claim describes code; no executed check is needed or implied.</td></tr><tr><td><a class="cl" href="#claim-CLM5" data-open="claim-CLM5"><code>CLM5</code></a></td><td><span class="chip s-verified"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Test-backed</span></td><td>Every named test ran with the outcome the claim needs: GenericsFormatterTests.ClosedGenericStruct_FromMetadataReference.</td></tr><tr><td><a class="cl" href="#claim-CLM6" data-open="claim-CLM6"><code>CLM6</code></a></td><td><span class="chip s-verified"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Test-backed</span></td><td>Every named test ran with the outcome the claim needs: GenericsFormatterTests.ClosedGenericRecordStruct_FromMetadataReference.</td></tr><tr><td><a class="cl" href="#claim-CLM7" data-open="claim-CLM7"><code>CLM7</code></a></td><td><span class="chip s-contradicted"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>Contradicted</span></td><td>A named test had the opposite outcome from what the claim needs: GenericsFormatterTests.ClosedGenericStruct_FromMetadataReference_UnkeyedMember in CHK4 (failed, expected passed).</td></tr><tr><td><a class="cl" href="#claim-CLM8" data-open="claim-CLM8"><code>CLM8</code></a></td><td><span class="chip s-unsupported"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>Unsupported</span></td><td>Names a test that no cited check ran: PrivateMemberAccessTests.FormatterForClassWithPrivateMembers.</td></tr></tbody>
+  </table></div>
+</section>
+
+<section class="sec" id="checks">
+  <h2>Executed checks, and what they do not cover</h2>
+  <p class="lede">Written only by the harness. Failed, skipped and not-run checks stay visible. Here, a failed check can be the useful result, and the card says when.</p>
+  <div class="checks">
+<article class="card check" id="check-CHK1">
+  <div class="chead"><code>CHK1</code><span class="chip s-verified"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Passed</span></div>
+  <h3>Existing generator tests on the base commit</h3>
+  <div class="bar" role="img" aria-label="CHK1 results: passed 167"><span class="seg s-verified" style="flex:167 1 0" title="passed: 167">167</span></div><div class="legend"><span class="lg"><i class="sw s-verified"></i>passed 167</span></div>
+  <div class="kv"><span>Revision</span><span>base</span></div>
+  <div class="kv"><span>Scope</span><span>MessagePack.SourceGenerator.Tests only, net8.0</span></div>
+  <div class="kv"><span>Limits</span><span>One machine (macOS arm64), one run. Other test projects were not run.</span></div>
+  <div class="kv"><span>Command</span><code>dotnet test tests/MessagePack.SourceGenerator.Tests -f net8.0</code></div><div class="kv"><span>Output</span><code>evidence/parent-2283-sourcegen-tests.log</code></div>
+</article>
+<article class="card check" id="check-CHK2">
+  <div class="chead"><code>CHK2</code><span class="chip s-verified"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Passed</span></div>
+  <h3>All generator tests on the AI commit</h3>
+  <div class="bar" role="img" aria-label="CHK2 results: passed 170"><span class="seg s-verified" style="flex:170 1 0" title="passed: 170">170</span></div><div class="legend"><span class="lg"><i class="sw s-verified"></i>passed 170</span></div>
+  <div class="kv"><span>Revision</span><span>head</span></div>
+  <div class="kv"><span>Scope</span><span>MessagePack.SourceGenerator.Tests only, net8.0</span></div>
+  <div class="kv"><span>Limits</span><span>Includes the 3 tests the AI added. Other test projects were not run.</span></div>
+  <div class="kv"><span>Command</span><code>dotnet test tests/MessagePack.SourceGenerator.Tests -f net8.0</code></div><div class="kv"><span>Output</span><code>evidence/cand-2283-sourcegen.log</code></div>
+</article>
+<article class="card check" id="check-CHK3">
+  <div class="chead"><code>CHK3</code><span class="chip s-contradicted"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>Failed</span><span class="tag">Expected to fail</span></div>
+  <h3>The AI commit&#x27;s tests run against the BASE source (fail-then-pass)</h3>
+  <div class="bar" role="img" aria-label="CHK3 results: passed 167, failed 3"><span class="seg s-verified" style="flex:167 1 0" title="passed: 167">167</span><span class="seg s-contradicted" style="flex:3 1 0" title="failed: 3">3</span></div><div class="legend"><span class="lg"><i class="sw s-verified"></i>passed 167</span><span class="lg"><i class="sw s-contradicted"></i>failed 3</span></div>
+  <div class="kv"><span>Revision</span><span>head tests on base source</span></div>
+  <div class="kv"><span>Scope</span><span>Shows the new tests detect the reported crash. A &#x27;failed&#x27; status here is the expected, useful outcome.</span></div>
+  <div class="kv"><span>Limits</span><span>Failures are the IndexOutOfRangeException from the issue. Does not test other behaviour.</span></div>
+  <div class="kv"><span>Command</span><code>git checkout base -- src; dotnet test tests/MessagePack.SourceGenerator.Tests -f net8.0</code></div><div class="kv"><span>Output</span><code>evidence/candtests-on-parent-2283-sourcegen.log</code></div><div class="kv"><span>Failures</span><ul class="plain"><li><code>GenericsFormatterTests.ClosedGenericStruct_FromMetadataReference</code></li><li><code>GenericsFormatterTests.ClosedGenericRecordStruct_FromMetadataReference</code></li><li><code>GenericsFormatterTests.ClosedGenericStruct_FromMetadataReference_UnkeyedMember</code></li></ul></div>
+</article>
+<article class="card check" id="check-CHK4">
+  <div class="chead"><code>CHK4</code><span class="chip s-contradicted"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>Failed</span><span class="tag">Probe, not a gate</span></div>
+  <h3>The AI commit&#x27;s tests run against a minimal hand-applied fix on the base (FirstOrDefault instead of [0] at the two live crash sites)</h3>
+  <div class="bar" role="img" aria-label="CHK4 results: passed 169, failed 1"><span class="seg s-verified" style="flex:169 1 0" title="passed: 169">169</span><span class="seg s-contradicted" style="flex:1 1 0" title="failed: 1">1</span></div><div class="legend"><span class="lg"><i class="sw s-verified"></i>passed 169</span><span class="lg"><i class="sw s-contradicted"></i>failed 1</span></div>
+  <div class="kv"><span>Revision</span><span>head tests on base source plus minimal fix</span></div>
+  <div class="kv"><span>Scope</span><span>Shows what the AI patch changes compared with a crash-only fix.</span></div>
+  <div class="kv"><span>Limits</span><span>The minimal fix is our approximation of the reference patch, not the PR itself. Only one diagnostic kind was observed.</span></div>
+  <div class="kv"><span>Command</span><code>evidence/run-minimal-fix-check.sh</code></div><div class="kv"><span>Output</span><code>evidence/minimalfix-candtests-2283.log</code></div><div class="kv"><span>Failures</span><ul class="plain"><li><code>GenericsFormatterTests.ClosedGenericStruct_FromMetadataReference_UnkeyedMember: expected 0 diagnostics, got 2 MsgPack004</code></li></ul></div>
+</article>
+<article class="card check" id="check-CHK5">
+  <div class="chead"><code>CHK5</code><span class="chip s-notrun"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" stroke-dasharray="3 3"/></svg>Not run</span></div>
+  <h3>The two-project dotnet build repro from the issue</h3>
+
+  <div class="kv"><span>Revision</span><span>head</span></div>
+  <div class="kv"><span>Scope</span><span>Would confirm AC1 and AC3 end to end outside the test harness.</span></div>
+  <div class="kv"><span>Limits</span><span>The issue&#x27;s mp-repro.zip was not downloaded or built.</span></div>
+
+</article></div>
+</section>
+
+<section class="sec" id="fail-then-pass">
+  <h2>Do the AI’s new tests detect the bug?</h2>
+  <p class="lede">A test that only passes proves little. These ran against the base source and the AI patch, plus a comparison fix. Green is the outcome that supports the AI patch, red is the opposite; a comparison probe is not a merge gate.</p>
+  <div class="tablewrap"><table class="grid ftp">
+    <thead><tr><th>New test</th><th>Base source<br><span class="muted small">CHK3: should fail</span></th><th>AI patch<br><span class="muted small">CHK2: should pass</span></th><th>Comparison fix<br><span class="muted small">CHK4: should pass</span></th></tr></thead>
+    <tbody><tr><td><code>ClosedGenericRecordStruct_FromMetadataReference</code><div class="muted small">GenericsFormatterTests</div></td><td><span class="mini s-verified">failed</span></td><td><span class="mini s-verified">passed</span></td><td><span class="mini s-verified">passed</span></td></tr><tr><td><code>ClosedGenericStruct_FromMetadataReference</code><div class="muted small">GenericsFormatterTests</div></td><td><span class="mini s-verified">failed</span></td><td><span class="mini s-verified">passed</span></td><td><span class="mini s-verified">passed</span></td></tr><tr><td><code>ClosedGenericStruct_FromMetadataReference_UnkeyedMember</code><div class="muted small">GenericsFormatterTests</div></td><td><span class="mini s-verified">failed</span></td><td><span class="mini s-verified">passed</span></td><td><span class="mini s-contradicted">failed</span></td></tr></tbody>
+  </table></div>
+  <div class="note"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg><span>The base failures and patch passes support the crash fix <i>in the tested scenarios</i>. They do not establish other trigger-matrix shapes, other diagnostic kinds, or the unrun two-project reproduction. The comparison column shows tests that behave differently in a crash-only fix; that is comparison evidence, not a broken build.</span></div>
+</section>
+
+<form class="decision" id="decision" autocomplete="off">
+
+  <h2>Your decision</h2>
+  <p>Decide from the brief, risks, classifications and checks above. Source is optional. Acceptance needs every refusal and finding position plus every unknown acknowledged; changes and escalation need your reason.</p>
+  <div class="dstate" id="dstate" aria-live="polite">No decision selected.</div>
+  <button type="button" class="linkish" id="first-error" hidden>Go to the first field that needs attention</button>
+  <div class="drow">
+    <fieldset class="seg3 outcomes" aria-describedby="err-outcome"><legend>Outcome</legend>
+      <label><input type="radio" name="outcome" value="accept"> Accept listed risks</label>
+      <label><input type="radio" name="outcome" value="changes"> Request changes</label>
+      <label><input type="radio" name="outcome" value="escalate"> Escalate for code/domain review</label>
+      <p class="field-error" id="err-outcome" hidden></p>
+    </fieldset>
+    <label class="grow">Reason<input name="reason" type="text" aria-describedby="err-reason" placeholder="Your reason in your own words">
+      <span class="field-error" id="err-reason" hidden></span>
+    </label>
+    <button type="submit" class="primary" id="copy-comment" disabled>Copy decision draft</button>
+    <a class="btn" href="https://github.com/nicholsss/junction26-messagepack-csharp/pull/1">Open PR #1</a>
+    <span>Status: pending</span>
+  </div>
+  <details><summary>Comment to paste in the PR</summary><pre id="comment-preview">/receipt accept [your reason, including residual risks]
+Head: 9df83c38409c8bfad0517aebffe48211eda4a5b4
+REF1: [ref1_accept_suppression | ref1_require_visible | ref1_owner_judgement]
+REF2: [ref2_accept_limitation | ref2_require_qualification | ref2_owner_judgement]
+OOR1: [accept_scope | change_required | needs_owner]
+OOR2: [accept_scope | change_required | needs_owner]
+UNK1: [acknowledged]
+UNK2: [acknowledged]</pre></details>
+  <div class="dfoot">Only a comment you post in GitHub can be applied as a decision. Bound to head <code>9df83c38</code>. A new push needs fresh evidence. This page is a published snapshot, not live PR state; the operator applies your comment and republishes. Escalation stays pending owner judgement. Prefer a teammate using their own GitHub account.</div>
+</form>
+
+<section class="sec" id="source">
+  <h2>Optional implementation evidence</h2>
+  <p class="lede">Source and diffs are corroboration, not a required step. They are shown only because this snapshot matches the recorded base and head.</p>
+  <details class="code-detail"><summary>Open the recorded source and diffs (optional)</summary>
+    <div class="code-heading"><b>TypeCollector.cs · lines 1444–1450</b><span>Exact head source excerpt</span></div><pre class="diff" tabindex="0" aria-label="Optional source excerpt">1444      private void ReportIfLocatedInCompilation(Action&lt;Diagnostic&gt; report, Diagnostic diagnostic)
+1445      {
+1446          if (diagnostic.Location.IsInSource &amp;&amp; this.compilation.ContainsSyntaxTree(diagnostic.Location.SourceTree))
+1447          {
+1448              report(diagnostic);
+1449          }
+1450      }</pre>
+    <details class="code-detail"><summary>src/MessagePack.SourceGenerator/CodeAnalysis/TypeCollector.cs</summary><pre class="diff" tabindex="0" aria-label="Recorded code diff"><span class="diffline context">diff --git a/src/MessagePack.SourceGenerator/CodeAnalysis/TypeCollector.cs b/src/MessagePack.SourceGenerator/CodeAnalysis/TypeCollector.cs</span>
+<span class="diffline context">index e121773d..c4ebe3e1 100644</span>
+<span class="diffline context">--- a/src/MessagePack.SourceGenerator/CodeAnalysis/TypeCollector.cs</span>
+<span class="diffline context">+++ b/src/MessagePack.SourceGenerator/CodeAnalysis/TypeCollector.cs</span>
+<span class="diffline context">@@ -236,7 +236,7 @@ public class TypeCollector</span>
+<span class="diffline context">     private TypeCollector(Compilation compilation, AnalyzerOptions options, ReferenceSymbols referenceSymbols, ITypeSymbol targetType, Action&lt;Diagnostic&gt;? reportAnalyzerDiagnostic, CancellationToken cancellationToken)</span>
+<span class="diffline context">     {</span>
+<span class="diffline context">         this.typeReferences = referenceSymbols;</span>
+<span class="diffline remove">-        this.reportDiagnostic = reportAnalyzerDiagnostic;</span>
+<span class="diffline add">+        this.reportDiagnostic = reportAnalyzerDiagnostic is null ? null : diagnostic =&gt; ReportIfLocatedInCompilation(reportAnalyzerDiagnostic, diagnostic);</span>
+<span class="diffline context">         this.options = options;</span>
+<span class="diffline context">         this.compilation = compilation;</span>
+<span class="diffline context">         this.cancellationToken = cancellationToken;</span>
+<span class="diffline context">@@ -982,7 +982,7 @@ public class TypeCollector</span>
+<span class="diffline context">                     var stringKey = key is { Value: string stringKeyValue } ? stringKeyValue : default;</span>
+<span class="diffline context">                     if (intKey == null &amp;&amp; stringKey == null)</span>
+<span class="diffline context">                     {</span>
+<span class="diffline remove">-                        this.reportDiagnostic?.Invoke(Diagnostic.Create(MsgPack00xMessagePackAnalyzer.BothStringAndIntKeyAreNull, ((PropertyDeclarationSyntax)item.DeclaringSyntaxReferences[0].GetSyntax()).Identifier.GetLocation(), formattedType.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat), item.Name));</span>
+<span class="diffline add">+                        this.reportDiagnostic?.Invoke(Diagnostic.Create(MsgPack00xMessagePackAnalyzer.BothStringAndIntKeyAreNull, GetPropertyIdentifierLocation(item), formattedType.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat), item.Name));</span>
+<span class="diffline context">                     }</span>
+<span class="diffline context"> </span>
+<span class="diffline context">                     // A property with an init accessor and an initializer has a default that will be discarded by the deserializer.</span>
+<span class="diffline context">@@ -1074,7 +1074,7 @@ public class TypeCollector</span>
+<span class="diffline context">                             {</span>
+<span class="diffline context">                                 Diagnostic diagnostic = derivedKeyAttribute is not null &amp;&amp; suppressSourceGeneration is not true</span>
+<span class="diffline context">                                     ? Diagnostic.Create(MsgPack00xMessagePackAnalyzer.AOTDerivedKeyAttribute, derivedKeyAttribute.GetSyntax(this.cancellationToken).GetLocation())</span>
+<span class="diffline remove">-                                    : Diagnostic.Create(MsgPack00xMessagePackAnalyzer.MemberNeedsKey, item.DeclaringSyntaxReferences[0].GetSyntax().GetLocation(), formattedType.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat), item.Name);</span>
+<span class="diffline add">+                                    : Diagnostic.Create(MsgPack00xMessagePackAnalyzer.MemberNeedsKey, item.DeclaringSyntaxReferences.FirstOrDefault()?.GetSyntax().GetLocation(), formattedType.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat), item.Name);</span>
+<span class="diffline context">                                 if (nonPublicMembersAreSerialized || (item.DeclaredAccessibility &amp; Accessibility.Public) == Accessibility.Public)</span>
+<span class="diffline context">                                 {</span>
+<span class="diffline context">                                     this.reportDiagnostic?.Invoke(diagnostic);</span>
+<span class="diffline context">@@ -1426,6 +1426,29 @@ public class TypeCollector</span>
+<span class="diffline context"> </span>
+<span class="diffline context">     private static Location? GetIdentifierLocation(INamedTypeSymbol type) =&gt; ((BaseTypeDeclarationSyntax?)type.DeclaringSyntaxReferences.FirstOrDefault()?.GetSyntax())?.Identifier.GetLocation();</span>
+<span class="diffline context"> </span>
+<span class="diffline add">+    /// &lt;summary&gt;</span>
+<span class="diffline add">+    /// Gets the location of the identifier of a property, if it is declared in source.</span>
+<span class="diffline add">+    /// &lt;/summary&gt;</span>
+<span class="diffline add">+    /// &lt;param name=&quot;property&quot;&gt;The property symbol. It may be declared in metadata, in which case &lt;see langword=&quot;null&quot; /&gt; is returned.&lt;/param&gt;</span>
+<span class="diffline add">+    /// &lt;returns&gt;The location of the identifier, or &lt;see langword=&quot;null&quot; /&gt; if the property has no declaration in source.&lt;/returns&gt;</span>
+<span class="diffline add">+    private static Location? GetPropertyIdentifierLocation(IPropertySymbol property) =&gt; (property.DeclaringSyntaxReferences.FirstOrDefault()?.GetSyntax() as PropertyDeclarationSyntax)?.Identifier.GetLocation();</span>
+<span class="diffline add">+</span>
+<span class="diffline add">+    /// &lt;summary&gt;</span>
+<span class="diffline add">+    /// Reports a diagnostic only when its location belongs to the compilation being analyzed.</span>
+<span class="diffline add">+    /// &lt;/summary&gt;</span>
+<span class="diffline add">+    /// &lt;remarks&gt;</span>
+<span class="diffline add">+    /// Types and members that come from metadata (or from another compilation) have no location in the compilation being analyzed.</span>
+<span class="diffline add">+    /// Their problems are reported by the compilation that defines them, so they are dropped here rather than being reported</span>
+<span class="diffline add">+    /// against a location that does not exist, which analyzers are not permitted to do.</span>
+<span class="diffline add">+    /// &lt;/remarks&gt;</span>
+<span class="diffline add">+    private void ReportIfLocatedInCompilation(Action&lt;Diagnostic&gt; report, Diagnostic diagnostic)</span>
+<span class="diffline add">+    {</span>
+<span class="diffline add">+        if (diagnostic.Location.IsInSource &amp;&amp; this.compilation.ContainsSyntaxTree(diagnostic.Location.SourceTree))</span>
+<span class="diffline add">+        {</span>
+<span class="diffline add">+            report(diagnostic);</span>
+<span class="diffline add">+        }</span>
+<span class="diffline add">+    }</span>
+<span class="diffline add">+</span>
+<span class="diffline context">     private static Location? GetLocation(IParameterSymbol parameter) =&gt; parameter.DeclaringSyntaxReferences.FirstOrDefault()?.GetSyntax().GetLocation();</span>
+<span class="diffline context"> </span>
+<span class="diffline context">     private static Location? GetParameterListLocation(IMethodSymbol? method) =&gt; ((BaseMethodDeclarationSyntax?)method?.DeclaringSyntaxReferences.FirstOrDefault()?.GetSyntax())?.ParameterList.GetLocation();</span></pre></details><details class="code-detail"><summary>README.md</summary><pre class="diff" tabindex="0" aria-label="Recorded code diff"><span class="diffline context">diff --git a/README.md b/README.md</span>
+<span class="diffline context">index c52f1088..5ae00d37 100644</span>
+<span class="diffline context">--- a/README.md</span>
+<span class="diffline context">+++ b/README.md</span>
+<span class="diffline context">@@ -1636,6 +1636,11 @@ Two assembly-level attributes exist to help with mixing in your own custom forma</span>
+<span class="diffline context"> </span>
+<span class="diffline context"> Learn more about using a mix of your own custom formatters and automatically generated ones in [the Analyzer section](#analyzer).</span>
+<span class="diffline context"> </span>
+<span class="diffline add">+### Generic types from referenced assemblies</span>
+<span class="diffline add">+</span>
+<span class="diffline add">+Closed generic types defined in a referenced assembly (for example, `Item&lt;int&gt;` where `Item&lt;T&gt;` is defined in another project or NuGet package) can be used as members of your `[MessagePackObject]` types, including generic value types and record structs.</span>
+<span class="diffline add">+Diagnostics about the members of such a type are reported by the assembly that defines it rather than by the consuming project, so any problem must be fixed there.</span>
+<span class="diffline add">+</span>
+<span class="diffline context"> ### MagicOnion</span>
+<span class="diffline context"> </span>
+<span class="diffline context"> [MagicOnion](https://github.com/Cysharp/MagicOnion) is a code-first gRPC framework based on grpc-dotnet and MessagePack. gRPC usually communicates with Protocol Buffers using IDL. But MagicOnion uses MessagePack for C# and does not need IDL. When communicating C# to C#, schemaless (or rather C# classes as schema) is better than using IDL.</span></pre></details><details class="code-detail"><summary>doc/analyzers/MsgPack004.md</summary><pre class="diff" tabindex="0" aria-label="Recorded code diff"><span class="diffline context">diff --git a/doc/analyzers/MsgPack004.md b/doc/analyzers/MsgPack004.md</span>
+<span class="diffline context">index 94bcdc10..a0fd5433 100644</span>
+<span class="diffline context">--- a/doc/analyzers/MsgPack004.md</span>
+<span class="diffline context">+++ b/doc/analyzers/MsgPack004.md</span>
+<span class="diffline context">@@ -45,3 +45,8 @@ public class C {</span>
+<span class="diffline context">     public int B { get; set; }</span>
+<span class="diffline context"> }</span>
+<span class="diffline context"> ```</span>
+<span class="diffline add">+</span>
+<span class="diffline add">+## Types from referenced assemblies</span>
+<span class="diffline add">+</span>
+<span class="diffline add">+This analyzer only reports on members declared in the project being compiled.</span>
+<span class="diffline add">+Members of a type defined in a referenced assembly are reported by the project that defines that type, so an unattributed public member of such a type must be fixed in its defining project.</span></pre></details>
+    <details><summary>Complete patch</summary>
+      <p class="muted small">Source issue URLs in test comments are replaced by the local requirement label for this display. Executable code is unchanged.</p><pre class="diff" tabindex="0" aria-label="Recorded code diff"><span class="diffline context">diff --git a/README.md b/README.md</span>
+<span class="diffline context">index c52f1088..5ae00d37 100644</span>
+<span class="diffline context">--- a/README.md</span>
+<span class="diffline context">+++ b/README.md</span>
+<span class="diffline context">@@ -1636,6 +1636,11 @@ Two assembly-level attributes exist to help with mixing in your own custom forma</span>
+<span class="diffline context"> </span>
+<span class="diffline context"> Learn more about using a mix of your own custom formatters and automatically generated ones in [the Analyzer section](#analyzer).</span>
+<span class="diffline context"> </span>
+<span class="diffline add">+### Generic types from referenced assemblies</span>
+<span class="diffline add">+</span>
+<span class="diffline add">+Closed generic types defined in a referenced assembly (for example, `Item&lt;int&gt;` where `Item&lt;T&gt;` is defined in another project or NuGet package) can be used as members of your `[MessagePackObject]` types, including generic value types and record structs.</span>
+<span class="diffline add">+Diagnostics about the members of such a type are reported by the assembly that defines it rather than by the consuming project, so any problem must be fixed there.</span>
+<span class="diffline add">+</span>
+<span class="diffline context"> ### MagicOnion</span>
+<span class="diffline context"> </span>
+<span class="diffline context"> [MagicOnion](https://github.com/Cysharp/MagicOnion) is a code-first gRPC framework based on grpc-dotnet and MessagePack. gRPC usually communicates with Protocol Buffers using IDL. But MagicOnion uses MessagePack for C# and does not need IDL. When communicating C# to C#, schemaless (or rather C# classes as schema) is better than using IDL.</span>
+<span class="diffline context">diff --git a/doc/analyzers/MsgPack004.md b/doc/analyzers/MsgPack004.md</span>
+<span class="diffline context">index 94bcdc10..a0fd5433 100644</span>
+<span class="diffline context">--- a/doc/analyzers/MsgPack004.md</span>
+<span class="diffline context">+++ b/doc/analyzers/MsgPack004.md</span>
+<span class="diffline context">@@ -45,3 +45,8 @@ public class C {</span>
+<span class="diffline context">     public int B { get; set; }</span>
+<span class="diffline context"> }</span>
+<span class="diffline context"> ```</span>
+<span class="diffline add">+</span>
+<span class="diffline add">+## Types from referenced assemblies</span>
+<span class="diffline add">+</span>
+<span class="diffline add">+This analyzer only reports on members declared in the project being compiled.</span>
+<span class="diffline add">+Members of a type defined in a referenced assembly are reported by the project that defines that type, so an unattributed public member of such a type must be fixed in its defining project.</span>
+<span class="diffline context">diff --git a/src/MessagePack.SourceGenerator/CodeAnalysis/TypeCollector.cs b/src/MessagePack.SourceGenerator/CodeAnalysis/TypeCollector.cs</span>
+<span class="diffline context">index e121773d..c4ebe3e1 100644</span>
+<span class="diffline context">--- a/src/MessagePack.SourceGenerator/CodeAnalysis/TypeCollector.cs</span>
+<span class="diffline context">+++ b/src/MessagePack.SourceGenerator/CodeAnalysis/TypeCollector.cs</span>
+<span class="diffline context">@@ -236,7 +236,7 @@ public class TypeCollector</span>
+<span class="diffline context">     private TypeCollector(Compilation compilation, AnalyzerOptions options, ReferenceSymbols referenceSymbols, ITypeSymbol targetType, Action&lt;Diagnostic&gt;? reportAnalyzerDiagnostic, CancellationToken cancellationToken)</span>
+<span class="diffline context">     {</span>
+<span class="diffline context">         this.typeReferences = referenceSymbols;</span>
+<span class="diffline remove">-        this.reportDiagnostic = reportAnalyzerDiagnostic;</span>
+<span class="diffline add">+        this.reportDiagnostic = reportAnalyzerDiagnostic is null ? null : diagnostic =&gt; ReportIfLocatedInCompilation(reportAnalyzerDiagnostic, diagnostic);</span>
+<span class="diffline context">         this.options = options;</span>
+<span class="diffline context">         this.compilation = compilation;</span>
+<span class="diffline context">         this.cancellationToken = cancellationToken;</span>
+<span class="diffline context">@@ -982,7 +982,7 @@ public class TypeCollector</span>
+<span class="diffline context">                     var stringKey = key is { Value: string stringKeyValue } ? stringKeyValue : default;</span>
+<span class="diffline context">                     if (intKey == null &amp;&amp; stringKey == null)</span>
+<span class="diffline context">                     {</span>
+<span class="diffline remove">-                        this.reportDiagnostic?.Invoke(Diagnostic.Create(MsgPack00xMessagePackAnalyzer.BothStringAndIntKeyAreNull, ((PropertyDeclarationSyntax)item.DeclaringSyntaxReferences[0].GetSyntax()).Identifier.GetLocation(), formattedType.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat), item.Name));</span>
+<span class="diffline add">+                        this.reportDiagnostic?.Invoke(Diagnostic.Create(MsgPack00xMessagePackAnalyzer.BothStringAndIntKeyAreNull, GetPropertyIdentifierLocation(item), formattedType.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat), item.Name));</span>
+<span class="diffline context">                     }</span>
+<span class="diffline context"> </span>
+<span class="diffline context">                     // A property with an init accessor and an initializer has a default that will be discarded by the deserializer.</span>
+<span class="diffline context">@@ -1074,7 +1074,7 @@ public class TypeCollector</span>
+<span class="diffline context">                             {</span>
+<span class="diffline context">                                 Diagnostic diagnostic = derivedKeyAttribute is not null &amp;&amp; suppressSourceGeneration is not true</span>
+<span class="diffline context">                                     ? Diagnostic.Create(MsgPack00xMessagePackAnalyzer.AOTDerivedKeyAttribute, derivedKeyAttribute.GetSyntax(this.cancellationToken).GetLocation())</span>
+<span class="diffline remove">-                                    : Diagnostic.Create(MsgPack00xMessagePackAnalyzer.MemberNeedsKey, item.DeclaringSyntaxReferences[0].GetSyntax().GetLocation(), formattedType.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat), item.Name);</span>
+<span class="diffline add">+                                    : Diagnostic.Create(MsgPack00xMessagePackAnalyzer.MemberNeedsKey, item.DeclaringSyntaxReferences.FirstOrDefault()?.GetSyntax().GetLocation(), formattedType.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat), item.Name);</span>
+<span class="diffline context">                                 if (nonPublicMembersAreSerialized || (item.DeclaredAccessibility &amp; Accessibility.Public) == Accessibility.Public)</span>
+<span class="diffline context">                                 {</span>
+<span class="diffline context">                                     this.reportDiagnostic?.Invoke(diagnostic);</span>
+<span class="diffline context">@@ -1426,6 +1426,29 @@ public class TypeCollector</span>
+<span class="diffline context"> </span>
+<span class="diffline context">     private static Location? GetIdentifierLocation(INamedTypeSymbol type) =&gt; ((BaseTypeDeclarationSyntax?)type.DeclaringSyntaxReferences.FirstOrDefault()?.GetSyntax())?.Identifier.GetLocation();</span>
+<span class="diffline context"> </span>
+<span class="diffline add">+    /// &lt;summary&gt;</span>
+<span class="diffline add">+    /// Gets the location of the identifier of a property, if it is declared in source.</span>
+<span class="diffline add">+    /// &lt;/summary&gt;</span>
+<span class="diffline add">+    /// &lt;param name=&quot;property&quot;&gt;The property symbol. It may be declared in metadata, in which case &lt;see langword=&quot;null&quot; /&gt; is returned.&lt;/param&gt;</span>
+<span class="diffline add">+    /// &lt;returns&gt;The location of the identifier, or &lt;see langword=&quot;null&quot; /&gt; if the property has no declaration in source.&lt;/returns&gt;</span>
+<span class="diffline add">+    private static Location? GetPropertyIdentifierLocation(IPropertySymbol property) =&gt; (property.DeclaringSyntaxReferences.FirstOrDefault()?.GetSyntax() as PropertyDeclarationSyntax)?.Identifier.GetLocation();</span>
+<span class="diffline add">+</span>
+<span class="diffline add">+    /// &lt;summary&gt;</span>
+<span class="diffline add">+    /// Reports a diagnostic only when its location belongs to the compilation being analyzed.</span>
+<span class="diffline add">+    /// &lt;/summary&gt;</span>
+<span class="diffline add">+    /// &lt;remarks&gt;</span>
+<span class="diffline add">+    /// Types and members that come from metadata (or from another compilation) have no location in the compilation being analyzed.</span>
+<span class="diffline add">+    /// Their problems are reported by the compilation that defines them, so they are dropped here rather than being reported</span>
+<span class="diffline add">+    /// against a location that does not exist, which analyzers are not permitted to do.</span>
+<span class="diffline add">+    /// &lt;/remarks&gt;</span>
+<span class="diffline add">+    private void ReportIfLocatedInCompilation(Action&lt;Diagnostic&gt; report, Diagnostic diagnostic)</span>
+<span class="diffline add">+    {</span>
+<span class="diffline add">+        if (diagnostic.Location.IsInSource &amp;&amp; this.compilation.ContainsSyntaxTree(diagnostic.Location.SourceTree))</span>
+<span class="diffline add">+        {</span>
+<span class="diffline add">+            report(diagnostic);</span>
+<span class="diffline add">+        }</span>
+<span class="diffline add">+    }</span>
+<span class="diffline add">+</span>
+<span class="diffline context">     private static Location? GetLocation(IParameterSymbol parameter) =&gt; parameter.DeclaringSyntaxReferences.FirstOrDefault()?.GetSyntax().GetLocation();</span>
+<span class="diffline context"> </span>
+<span class="diffline context">     private static Location? GetParameterListLocation(IMethodSymbol? method) =&gt; ((BaseMethodDeclarationSyntax?)method?.DeclaringSyntaxReferences.FirstOrDefault()?.GetSyntax())?.ParameterList.GetLocation();</span>
+<span class="diffline context">diff --git a/tests/MessagePack.SourceGenerator.Tests/GenericsFormatterTests.cs b/tests/MessagePack.SourceGenerator.Tests/GenericsFormatterTests.cs</span>
+<span class="diffline context">index 283622c5..92cb3ac3 100644</span>
+<span class="diffline context">--- a/tests/MessagePack.SourceGenerator.Tests/GenericsFormatterTests.cs</span>
+<span class="diffline context">+++ b/tests/MessagePack.SourceGenerator.Tests/GenericsFormatterTests.cs</span>
+<span class="diffline context">@@ -1,7 +1,9 @@</span>
+<span class="diffline context"> ﻿// Copyright (c) All contributors. All rights reserved.</span>
+<span class="diffline context"> // Licensed under the MIT license. See LICENSE file in the project root for full license information.</span>
+<span class="diffline context"> </span>
+<span class="diffline add">+using Microsoft.CodeAnalysis;</span>
+<span class="diffline context"> using Microsoft.CodeAnalysis.CSharp;</span>
+<span class="diffline add">+using Microsoft.CodeAnalysis.Testing;</span>
+<span class="diffline context"> using VerifyCS = CSharpSourceGeneratorVerifier&lt;MessagePack.SourceGenerator.MessagePackGenerator&gt;;</span>
+<span class="diffline context"> </span>
+<span class="diffline context"> public class GenericsFormatterTests</span>
+<span class="diffline context">@@ -494,6 +496,193 @@ namespace TempProject</span>
+<span class="diffline context">         }.RunAsync();</span>
+<span class="diffline context">     }</span>
+<span class="diffline context"> </span>
+<span class="diffline add">+    /// &lt;summary&gt;</span>
+<span class="diffline add">+    /// Asserts that a closed generic value type defined in a referenced &lt;em&gt;assembly&lt;/em&gt; (metadata only, no syntax),</span>
+<span class="diffline add">+    /// used as a member type, does not crash the generator or analyzer.</span>
+<span class="diffline add">+    /// &lt;/summary&gt;</span>
+<span class="diffline add">+    /// &lt;remarks&gt;</span>
+<span class="diffline add">+    /// See R2283 (local demo requirement; source URL omitted in display).</span>
+<span class="diffline add">+    /// &lt;/remarks&gt;</span>
+<span class="diffline add">+    [Fact]</span>
+<span class="diffline add">+    public async Task ClosedGenericStruct_FromMetadataReference()</span>
+<span class="diffline add">+    {</span>
+<span class="diffline add">+        string defineSource = &quot;&quot;&quot;</span>
+<span class="diffline add">+using MessagePack;</span>
+<span class="diffline add">+</span>
+<span class="diffline add">+namespace TempProject</span>
+<span class="diffline add">+{</span>
+<span class="diffline add">+    [MessagePackObject]</span>
+<span class="diffline add">+    public struct MyGenericStruct&lt;T&gt;</span>
+<span class="diffline add">+    {</span>
+<span class="diffline add">+        [Key(0)]</span>
+<span class="diffline add">+        public T Content { get; set; }</span>
+<span class="diffline add">+    }</span>
+<span class="diffline add">+}</span>
+<span class="diffline add">+&quot;&quot;&quot;;</span>
+<span class="diffline add">+</span>
+<span class="diffline add">+        string usageSource = &quot;&quot;&quot;</span>
+<span class="diffline add">+using MessagePack;</span>
+<span class="diffline add">+</span>
+<span class="diffline add">+namespace TempProject</span>
+<span class="diffline add">+{</span>
+<span class="diffline add">+    [MessagePackObject]</span>
+<span class="diffline add">+    public class MyObject</span>
+<span class="diffline add">+    {</span>
+<span class="diffline add">+        [Key(0)]</span>
+<span class="diffline add">+        public MyGenericStruct&lt;int&gt; Value { get; set; }</span>
+<span class="diffline add">+    }</span>
+<span class="diffline add">+</span>
+<span class="diffline add">+    [GeneratedMessagePackResolver]</span>
+<span class="diffline add">+    partial class MyResolver { }</span>
+<span class="diffline add">+}</span>
+<span class="diffline add">+&quot;&quot;&quot;;</span>
+<span class="diffline add">+</span>
+<span class="diffline add">+        await RunWithMetadataReferenceAsync(defineSource, usageSource, &quot;TempProject.MyResolver.g.cs&quot;);</span>
+<span class="diffline add">+    }</span>
+<span class="diffline add">+</span>
+<span class="diffline add">+    /// &lt;summary&gt;</span>
+<span class="diffline add">+    /// Asserts that a closed generic &lt;em&gt;record struct&lt;/em&gt; defined in a referenced assembly, used as a member type,</span>
+<span class="diffline add">+    /// does not crash the generator or analyzer.</span>
+<span class="diffline add">+    /// &lt;/summary&gt;</span>
+<span class="diffline add">+    /// &lt;remarks&gt;</span>
+<span class="diffline add">+    /// See R2283 (local demo requirement; source URL omitted in display).</span>
+<span class="diffline add">+    /// &lt;/remarks&gt;</span>
+<span class="diffline add">+    [Fact]</span>
+<span class="diffline add">+    public async Task ClosedGenericRecordStruct_FromMetadataReference()</span>
+<span class="diffline add">+    {</span>
+<span class="diffline add">+        string defineSource = &quot;&quot;&quot;</span>
+<span class="diffline add">+using MessagePack;</span>
+<span class="diffline add">+</span>
+<span class="diffline add">+namespace Lib;</span>
+<span class="diffline add">+</span>
+<span class="diffline add">+[MessagePackObject]</span>
+<span class="diffline add">+public partial record struct Item&lt;T&gt;([property: Key(0)] string Key);</span>
+<span class="diffline add">+&quot;&quot;&quot;;</span>
+<span class="diffline add">+</span>
+<span class="diffline add">+        string usageSource = &quot;&quot;&quot;</span>
+<span class="diffline add">+using MessagePack;</span>
+<span class="diffline add">+using Lib;</span>
+<span class="diffline add">+</span>
+<span class="diffline add">+namespace App;</span>
+<span class="diffline add">+</span>
+<span class="diffline add">+[MessagePackObject]</span>
+<span class="diffline add">+public sealed partial record Cmd([property: Key(0)] string Scope)</span>
+<span class="diffline add">+{</span>
+<span class="diffline add">+    [Key(1)]</span>
+<span class="diffline add">+    public Item&lt;int&gt; Member { get; init; }</span>
+<span class="diffline add">+}</span>
+<span class="diffline add">+</span>
+<span class="diffline add">+[GeneratedMessagePackResolver]</span>
+<span class="diffline add">+partial class AppResolver { }</span>
+<span class="diffline add">+&quot;&quot;&quot;;</span>
+<span class="diffline add">+</span>
+<span class="diffline add">+        await RunWithMetadataReferenceAsync(defineSource, usageSource, &quot;App.AppResolver.g.cs&quot;, LanguageVersion.Latest);</span>
+<span class="diffline add">+    }</span>
+<span class="diffline add">+</span>
+<span class="diffline add">+    /// &lt;summary&gt;</span>
+<span class="diffline add">+    /// Asserts that a closed generic value type from a referenced assembly whose members lack a key attribute</span>
+<span class="diffline add">+    /// does not crash the generator or analyzer, since its member diagnostics belong to the defining assembly.</span>
+<span class="diffline add">+    /// &lt;/summary&gt;</span>
+<span class="diffline add">+    /// &lt;remarks&gt;</span>
+<span class="diffline add">+    /// See R2283 (local demo requirement; source URL omitted in display).</span>
+<span class="diffline add">+    /// &lt;/remarks&gt;</span>
+<span class="diffline add">+    [Fact]</span>
+<span class="diffline add">+    public async Task ClosedGenericStruct_FromMetadataReference_UnkeyedMember()</span>
+<span class="diffline add">+    {</span>
+<span class="diffline add">+        string defineSource = &quot;&quot;&quot;</span>
+<span class="diffline add">+using MessagePack;</span>
+<span class="diffline add">+</span>
+<span class="diffline add">+namespace TempProject</span>
+<span class="diffline add">+{</span>
+<span class="diffline add">+    [MessagePackObject]</span>
+<span class="diffline add">+    public struct MyGenericStruct&lt;T&gt;</span>
+<span class="diffline add">+    {</span>
+<span class="diffline add">+        [Key(0)]</span>
+<span class="diffline add">+        public string Key { get; set; }</span>
+<span class="diffline add">+</span>
+<span class="diffline add">+        public int Unkeyed { get; set; }</span>
+<span class="diffline add">+    }</span>
+<span class="diffline add">+}</span>
+<span class="diffline add">+&quot;&quot;&quot;;</span>
+<span class="diffline add">+</span>
+<span class="diffline add">+        string usageSource = &quot;&quot;&quot;</span>
+<span class="diffline add">+using MessagePack;</span>
+<span class="diffline add">+</span>
+<span class="diffline add">+namespace TempProject</span>
+<span class="diffline add">+{</span>
+<span class="diffline add">+    [MessagePackObject]</span>
+<span class="diffline add">+    public class MyObject</span>
+<span class="diffline add">+    {</span>
+<span class="diffline add">+        [Key(0)]</span>
+<span class="diffline add">+        public MyGenericStruct&lt;int&gt; Value { get; set; }</span>
+<span class="diffline add">+    }</span>
+<span class="diffline add">+</span>
+<span class="diffline add">+    [GeneratedMessagePackResolver]</span>
+<span class="diffline add">+    partial class MyResolver { }</span>
+<span class="diffline add">+}</span>
+<span class="diffline add">+&quot;&quot;&quot;;</span>
+<span class="diffline add">+</span>
+<span class="diffline add">+        await RunWithMetadataReferenceAsync(defineSource, usageSource, &quot;TempProject.MyResolver.g.cs&quot;);</span>
+<span class="diffline add">+    }</span>
+<span class="diffline add">+</span>
+<span class="diffline add">+    /// &lt;summary&gt;</span>
+<span class="diffline add">+    /// Compiles &lt;paramref name=&quot;defineSource&quot;/&gt; to an assembly image, then verifies that the analyzers and the generator</span>
+<span class="diffline add">+    /// handle &lt;paramref name=&quot;usageSource&quot;/&gt; without diagnostics, referencing that image as metadata only,</span>
+<span class="diffline add">+    /// and that the resolver named &lt;paramref name=&quot;expectedResolverHintName&quot;/&gt; is generated.</span>
+<span class="diffline add">+    /// &lt;/summary&gt;</span>
+<span class="diffline add">+    private static async Task RunWithMetadataReferenceAsync(string defineSource, string usageSource, string expectedResolverHintName, LanguageVersion languageVersion = LanguageVersion.CSharp7_3)</span>
+<span class="diffline add">+    {</span>
+<span class="diffline add">+        MetadataReference definingAssembly = await CompileToMetadataReferenceAsync(&quot;DefiningProject&quot;, defineSource, languageVersion);</span>
+<span class="diffline add">+</span>
+<span class="diffline add">+        // Run the analyzers and the generator, failing on any diagnostic (the defect surfaced as AD0001 and CS8785).</span>
+<span class="diffline add">+        var test = new VerifyCS.Test(ReferencesSet.MessagePack)</span>
+<span class="diffline add">+        {</span>
+<span class="diffline add">+            LanguageVersion = languageVersion,</span>
+<span class="diffline add">+            TestBehaviors = TestBehaviors.SkipGeneratedSourcesCheck,</span>
+<span class="diffline add">+            TestState =</span>
+<span class="diffline add">+            {</span>
+<span class="diffline add">+                Sources = { usageSource },</span>
+<span class="diffline add">+            },</span>
+<span class="diffline add">+        };</span>
+<span class="diffline add">+        test.TestState.AdditionalReferences.Add(definingAssembly);</span>
+<span class="diffline add">+        await test.RunAsync();</span>
+<span class="diffline add">+</span>
+<span class="diffline add">+        // Verify that the resolver was actually generated for the usage assembly, since the defect caused it to be silently omitted.</span>
+<span class="diffline add">+        ImmutableArray&lt;MetadataReference&gt; frameworkReferences = await ReferenceAssemblies.Net.Net80.ResolveAsync(LanguageNames.CSharp, CancellationToken.None);</span>
+<span class="diffline add">+        Compilation usageCompilation = CreateCompilation(&quot;App&quot;, usageSource, languageVersion, frameworkReferences.Concat(ReferencesHelper.GetReferences(ReferencesSet.MessagePack)).Append(definingAssembly));</span>
+<span class="diffline add">+        GeneratorDriverRunResult runResult = CSharpGeneratorDriver.Create(new MessagePack.SourceGenerator.MessagePackGenerator().AsSourceGenerator())</span>
+<span class="diffline add">+            .RunGenerators(usageCompilation)</span>
+<span class="diffline add">+            .GetRunResult();</span>
+<span class="diffline add">+        Assert.Empty(runResult.Diagnostics.Where(d =&gt; d.Severity &gt;= DiagnosticSeverity.Warning));</span>
+<span class="diffline add">+        var hintNames = runResult.Results.SelectMany(r =&gt; r.GeneratedSources).Select(s =&gt; s.HintName).ToList();</span>
+<span class="diffline add">+        Assert.Contains(expectedResolverHintName, hintNames);</span>
+<span class="diffline add">+    }</span>
+<span class="diffline add">+</span>
+<span class="diffline add">+    private static async Task&lt;MetadataReference&gt; CompileToMetadataReferenceAsync(string assemblyName, string source, LanguageVersion languageVersion)</span>
+<span class="diffline add">+    {</span>
+<span class="diffline add">+        ImmutableArray&lt;MetadataReference&gt; frameworkReferences = await ReferenceAssemblies.Net.Net80.ResolveAsync(LanguageNames.CSharp, CancellationToken.None);</span>
+<span class="diffline add">+        Compilation compilation = CreateCompilation(assemblyName, source, languageVersion, frameworkReferences.Concat(ReferencesHelper.GetReferences(ReferencesSet.MessagePack)), OutputKind.DynamicallyLinkedLibrary);</span>
+<span class="diffline add">+</span>
+<span class="diffline add">+        using var stream = new MemoryStream();</span>
+<span class="diffline add">+        Microsoft.CodeAnalysis.Emit.EmitResult emitResult = compilation.Emit(stream);</span>
+<span class="diffline add">+        if (!emitResult.Success)</span>
+<span class="diffline add">+        {</span>
+<span class="diffline add">+            throw new InvalidOperationException(&quot;Failed to compile referenced assembly: &quot; + string.Join(Environment.NewLine, emitResult.Diagnostics));</span>
+<span class="diffline add">+        }</span>
+<span class="diffline add">+</span>
+<span class="diffline add">+        return MetadataReference.CreateFromImage(stream.ToArray());</span>
+<span class="diffline add">+    }</span>
+<span class="diffline add">+</span>
+<span class="diffline add">+    private static Compilation CreateCompilation(string assemblyName, string source, LanguageVersion languageVersion, IEnumerable&lt;MetadataReference&gt; references, OutputKind outputKind = OutputKind.DynamicallyLinkedLibrary)</span>
+<span class="diffline add">+    {</span>
+<span class="diffline add">+        var parseOptions = CSharpParseOptions.Default.WithLanguageVersion(languageVersion);</span>
+<span class="diffline add">+        return CSharpCompilation.Create(</span>
+<span class="diffline add">+            assemblyName,</span>
+<span class="diffline add">+            new[] { CSharpSyntaxTree.ParseText(source, parseOptions) },</span>
+<span class="diffline add">+            references.ToArray(),</span>
+<span class="diffline add">+            new CSharpCompilationOptions(outputKind));</span>
+<span class="diffline add">+    }</span>
+<span class="diffline add">+</span>
+<span class="diffline context">     /// &lt;summary&gt;</span>
+<span class="diffline context">     /// Asserts that the generator can handle directly recursive generic constraints.</span>
+<span class="diffline context">     /// &lt;/summary&gt;</span></pre>
+      <details><summary>Sample source license and original authorship</summary><pre class="license-text">MessagePack for C#
+
+MIT License
+
+Copyright (c) 2017 Yoshifumi Kawai and contributors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the &quot;Software&quot;), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+lz4net
+
+BSD 2-Clause &quot;Simplified&quot; License
+
+Copyright (c) 2013-2017, Milosz Krajewski
+
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+
+Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+
+Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+</pre></details>
+    </details>
+    <p class="muted small">Supplied MessagePack-CSharp challenge sample; original authorship and MIT license retained in the demo repository. Code is bound to head 9df83c38. Checks are recorded runs, not newly executed here.</p>
+  </details>
+</section>
+  <details class="audit"><summary>Explore the full evidence receipt</summary>
+    <p class="muted">Traceability for drilling down. A test-backed claim is not proof of semantic relevance or complete coverage, and source remains optional.</p>
+
+<aside class="rail" aria-label="Routing and limits">
+  <section class="card">
+    <div class="overline">Review depth</div>
+    <span class="tier t-standard big">Standard</span>
+    <p class="muted">Work through the decision brief, the risks and the unknowns, then decide. Source is optional. A rule set this, not a score.</p>
+    <div class="overline">Rules that fired</div>
+    <ul class="rules"><li><span class="rule">A claim is contradicted by an executed check</span><span class="obs">CLM7</span></li><li><span class="rule">A claim has no supporting evidence</span><span class="obs">CLM8</span></li><li><span class="rule">The change goes beyond the requirement</span><span class="obs">OOR1, OOR2</span></li><li><span class="rule">The AI refused to decide something the human must</span><span class="obs">REF1, REF2</span></li><li><span class="rule">Some checks did not run (visible, not hidden)</span><span class="obs">CHK5</span></li></ul>
+  </section>
+  <section class="card limits">
+    <div class="overline">What this does not cover</div>
+    <ul><li>CHK5 (the two-project dotnet build repro) was not run, so AC1 and AC3 are not confirmed end to end outside the test harness.</li><li>Whether the analyzer-suppression wrapper changes observable diagnostics for any existing consumer scenario beyond the tests listed was not checked.</li></ul>
+    <p class="muted small">Nothing here establishes long-term reliability, and a clean classification is not a clean bill of health.</p>
+  </section>
+</aside>
+<section class="sec" id="read-first">
+  <h2>Optional source focus</h2>
+  <p class="lede">Corroboration only, not a required reading list. Every decision-critical point appears above in normal text.</p>
+  <ul class="focus"><li><div><code class="where">GenericsFormatterTests.cs:590-626</code><div class="muted small path">tests/MessagePack.SourceGenerator.Tests/</div></div><span>CLM7 is contradicted: A named test had the opposite outcome from what the claim needs: GenericsFormatterTests.ClosedGenericStruct_FromMetadataReference_UnkeyedMember in CHK4 (failed, expected passed).</span></li><li><div><code class="where">GenericsFormatterTests.cs:499-506</code><div class="muted small path">tests/MessagePack.SourceGenerator.Tests/</div></div><span>CLM8 is unsupported: Names a test that no cited check ran: PrivateMemberAccessTests.FormatterForClassWithPrivateMembers.</span></li><li><div><code class="where">TypeCollector.cs:239</code><div class="muted small path">src/MessagePack.SourceGenerator/CodeAnalysis/</div></div><span>Review CLM1 alongside the scope findings and refusal questions; citation existence does not establish correctness.</span></li><li><div><code class="where">TypeCollector.cs:1444-1450</code><div class="muted small path">src/MessagePack.SourceGenerator/CodeAnalysis/</div></div><span>Review CLM2 alongside the scope findings and refusal questions; citation existence does not establish correctness.</span></li><li><div><code class="where">TypeCollector.cs:1077</code><div class="muted small path">src/MessagePack.SourceGenerator/CodeAnalysis/</div></div><span>Review CLM3 alongside the scope findings and refusal questions; citation existence does not establish correctness.</span></li><li><div><code class="where">TypeCollector.cs:985</code><div class="muted small path">src/MessagePack.SourceGenerator/CodeAnalysis/</div></div><span>Review CLM4 alongside the scope findings and refusal questions; citation existence does not establish correctness.</span></li></ul>
+  <div class="note"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg><span><b>Source is optional.</b> Opening these files may help check the AI's interpretation, but the decision brief, recorded checks, classification reasons and unknowns are the no-code path. A citation that resolves does not show that the cited lines support the claim.</span></div>
+</section>
+<section class="sec" id="coverage">
+  <h2>Requirement to evidence</h2>
+  <p class="lede">Each acceptance criterion, and the claims that touch it. <b>Stated</b> criteria come from the issue; <b>derived</b> ones are ours and labelled as such.</p>
+  <div class="tablewrap"><table class="grid">
+    <thead><tr><th>ID</th><th>Criterion</th><th>Claims</th></tr></thead>
+    <tbody><tr><td><code>AC1</code></td><td>A [MessagePackObject] type with a member of a closed generic value type from a referenced assembly builds cleanly and gets a generated resolver.<span class="origin o-stated">stated</span></td><td class="chips"><a class="cl" href="#claim-CLM3" data-open="claim-CLM3"><code>CLM3</code><span class="chip s-source_only"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>Source only</span></a><a class="cl" href="#claim-CLM4" data-open="claim-CLM4"><code>CLM4</code><span class="chip s-source_only"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>Source only</span></a><a class="cl" href="#claim-CLM5" data-open="claim-CLM5"><code>CLM5</code><span class="chip s-verified"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Test-backed</span></a><a class="cl" href="#claim-CLM6" data-open="claim-CLM6"><code>CLM6</code><span class="chip s-verified"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Test-backed</span></a><a class="cl" href="#claim-CLM7" data-open="claim-CLM7"><code>CLM7</code><span class="chip s-contradicted"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>Contradicted</span></a></td></tr><tr><td><code>AC2</code></td><td>The other trigger-matrix shapes (non-generic struct, generic or non-generic class, non-generic record struct) keep working as before.<span class="origin o-derived">derived</span></td><td class="chips"><a class="cl" href="#claim-CLM8" data-open="claim-CLM8"><code>CLM8</code><span class="chip s-unsupported"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>Unsupported</span></a></td></tr><tr><td><code>AC3</code></td><td>No CS8785 or AD0001 warning is produced for these shapes.<span class="origin o-derived">derived</span></td><td class="chips"><a class="cl" href="#claim-CLM1" data-open="claim-CLM1"><code>CLM1</code><span class="chip s-source_only"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>Source only</span></a><a class="cl" href="#claim-CLM2" data-open="claim-CLM2"><code>CLM2</code><span class="chip s-source_only"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>Source only</span></a><a class="cl" href="#claim-CLM5" data-open="claim-CLM5"><code>CLM5</code><span class="chip s-verified"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Test-backed</span></a><a class="cl" href="#claim-CLM6" data-open="claim-CLM6"><code>CLM6</code><span class="chip s-verified"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Test-backed</span></a><a class="cl" href="#claim-CLM7" data-open="claim-CLM7"><code>CLM7</code><span class="chip s-contradicted"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>Contradicted</span></a></td></tr></tbody>
+  </table></div>
+</section>
+<section class="sec" id="claims">
+  <h2>Claims</h2>
+  <p class="lede">What the change says it does. A status is computed by the engine from executed checks; the author never sets it. <b>Test-backed</b> means a named test ran with the expected outcome; relevance to the whole claim remains unproven. Archived JSON calls this status verified.</p>
+  <div class="bar" role="img" aria-label="Claims by status: Test-backed 2, Contradicted 1, Unsupported 1, Source only 4"><span class="seg s-verified" style="flex:2 1 0" title="Test-backed: 2">2</span><span class="seg s-contradicted" style="flex:1 1 0" title="Contradicted: 1">1</span><span class="seg s-unsupported" style="flex:1 1 0" title="Unsupported: 1">1</span><span class="seg s-source_only" style="flex:4 1 0" title="Source only: 4">4</span></div><div class="legend"><span class="lg"><i class="sw s-verified"></i>Test-backed 2</span><span class="lg"><i class="sw s-contradicted"></i>Contradicted 1</span><span class="lg"><i class="sw s-unsupported"></i>Unsupported 1</span><span class="lg"><i class="sw s-source_only"></i>Source only 4</span></div>
+  <div class="claims">
+<details class="claim" id="claim-CLM1">
+  <summary>
+    <span class="chip s-source_only"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>Source only</span>
+    <code class="cid">CLM1</code>
+    <span class="ctext">The constructor now wraps the caller-supplied diagnostic reporter so that every diagnostic is passed through ReportIfLocatedInCompilation before being reported.</span>
+    <span class="kind">code fact</span>
+  </summary>
+  <div class="claimbody">
+    <ol class="chain">
+      <li><div class="overline">Requirement</div><ul class="plain"><li><code>AC3</code> No CS8785 or AD0001 warning is produced for these shapes.</li></ul></li>
+      <li><div class="overline">Claim</div><p>The constructor now wraps the caller-supplied diagnostic reporter so that every diagnostic is passed through ReportIfLocatedInCompilation before being reported.</p></li>
+      <li><div class="overline">Cited lines</div><code class="where">src/MessagePack.SourceGenerator/CodeAnalysis/TypeCollector.cs:239</code><div class="muted small">at 9df83c38, resolves</div></li>
+      <li><div class="overline">Named tests</div><p class="muted">No executed check.</p></li>
+      <li><div class="overline">Result</div><span class="chip s-source_only"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>Source only</span></li>
+    </ol>
+    <div class="why"><div class="overline">Why the engine gave this status</div><p>The citation resolves. The claim describes code; no executed check is needed or implied.</p></div>
+    <div class="why"><div class="overline">Author’s note</div><p>Wrapping happens only when reportAnalyzerDiagnostic is non-null.</p></div>
+  </div>
+</details>
+<details class="claim" id="claim-CLM2">
+  <summary>
+    <span class="chip s-source_only"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>Source only</span>
+    <code class="cid">CLM2</code>
+    <span class="ctext">ReportIfLocatedInCompilation drops a diagnostic unless its location is in source and its syntax tree belongs to the compilation being analyzed, so diagnostics for metadata-only members are not reported.</span>
+    <span class="kind">code fact</span>
+  </summary>
+  <div class="claimbody">
+    <ol class="chain">
+      <li><div class="overline">Requirement</div><ul class="plain"><li><code>AC3</code> No CS8785 or AD0001 warning is produced for these shapes.</li></ul></li>
+      <li><div class="overline">Claim</div><p>ReportIfLocatedInCompilation drops a diagnostic unless its location is in source and its syntax tree belongs to the compilation being analyzed, so diagnostics for metadata-only members are not reported.</p></li>
+      <li><div class="overline">Cited lines</div><code class="where">src/MessagePack.SourceGenerator/CodeAnalysis/TypeCollector.cs:1444-1450</code><div class="muted small">at 9df83c38, resolves</div></li>
+      <li><div class="overline">Named tests</div><p class="muted">No executed check.</p></li>
+      <li><div class="overline">Result</div><span class="chip s-source_only"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>Source only</span></li>
+    </ol>
+    <div class="why"><div class="overline">Why the engine gave this status</div><p>The citation resolves. The claim describes code; no executed check is needed or implied.</p></div>
+    <div class="why"><div class="overline">Author’s note</div><p>This is the mechanism that avoids reporting against a location that does not exist.</p></div>
+  </div>
+</details>
+<details class="claim" id="claim-CLM3">
+  <summary>
+    <span class="chip s-source_only"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>Source only</span>
+    <code class="cid">CLM3</code>
+    <span class="ctext">The MemberNeedsKey diagnostic site now uses DeclaringSyntaxReferences.FirstOrDefault()?.GetSyntax().GetLocation() instead of indexing [0], so a member with no source declaration yields a null location rather than throwing.</span>
+    <span class="kind">code fact</span>
+  </summary>
+  <div class="claimbody">
+    <ol class="chain">
+      <li><div class="overline">Requirement</div><ul class="plain"><li><code>AC1</code> A [MessagePackObject] type with a member of a closed generic value type from a referenced assembly builds cleanly and gets a generated resolver.</li></ul></li>
+      <li><div class="overline">Claim</div><p>The MemberNeedsKey diagnostic site now uses DeclaringSyntaxReferences.FirstOrDefault()?.GetSyntax().GetLocation() instead of indexing [0], so a member with no source declaration yields a null location rather than throwing.</p></li>
+      <li><div class="overline">Cited lines</div><code class="where">src/MessagePack.SourceGenerator/CodeAnalysis/TypeCollector.cs:1077</code><div class="muted small">at 9df83c38, resolves</div></li>
+      <li><div class="overline">Named tests</div><p class="muted">No executed check.</p></li>
+      <li><div class="overline">Result</div><span class="chip s-source_only"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>Source only</span></li>
+    </ol>
+    <div class="why"><div class="overline">Why the engine gave this status</div><p>The citation resolves. The claim describes code; no executed check is needed or implied.</p></div>
+    <div class="why"><div class="overline">Author’s note</div><p>The null location is then filtered out by ReportIfLocatedInCompilation.</p></div>
+  </div>
+</details>
+<details class="claim" id="claim-CLM4">
+  <summary>
+    <span class="chip s-source_only"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>Source only</span>
+    <code class="cid">CLM4</code>
+    <span class="ctext">The BothStringAndIntKeyAreNull diagnostic site now obtains its location from GetPropertyIdentifierLocation, which returns null when the property has no PropertyDeclarationSyntax in source, instead of indexing DeclaringSyntaxReferences[0].</span>
+    <span class="kind">code fact</span>
+  </summary>
+  <div class="claimbody">
+    <ol class="chain">
+      <li><div class="overline">Requirement</div><ul class="plain"><li><code>AC1</code> A [MessagePackObject] type with a member of a closed generic value type from a referenced assembly builds cleanly and gets a generated resolver.</li></ul></li>
+      <li><div class="overline">Claim</div><p>The BothStringAndIntKeyAreNull diagnostic site now obtains its location from GetPropertyIdentifierLocation, which returns null when the property has no PropertyDeclarationSyntax in source, instead of indexing DeclaringSyntaxReferences[0].</p></li>
+      <li><div class="overline">Cited lines</div><code class="where">src/MessagePack.SourceGenerator/CodeAnalysis/TypeCollector.cs:985</code><div class="muted small">at 9df83c38, resolves</div></li>
+      <li><div class="overline">Named tests</div><p class="muted">No executed check.</p></li>
+      <li><div class="overline">Result</div><span class="chip s-source_only"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>Source only</span></li>
+    </ol>
+    <div class="why"><div class="overline">Why the engine gave this status</div><p>The citation resolves. The claim describes code; no executed check is needed or implied.</p></div>
+    <div class="why"><div class="overline">Author’s note</div><p>Helper defined at line 1434.</p></div>
+  </div>
+</details>
+<details class="claim" id="claim-CLM5">
+  <summary>
+    <span class="chip s-verified"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Test-backed</span>
+    <code class="cid">CLM5</code>
+    <span class="ctext">GenericsFormatterTests.ClosedGenericStruct_FromMetadataReference compiles a [MessagePackObject] generic struct into a metadata-only reference, uses MyGenericStruct&lt;int&gt; as a member of a [MessagePackObject] class with a [GeneratedMessagePackResolver], and asserts no warning-or-worse generator diagnostics and that the resolver hint name TempProject.MyResolver.g.cs is generated.</span>
+    <span class="kind">behaviour</span>
+  </summary>
+  <div class="claimbody">
+    <ol class="chain">
+      <li><div class="overline">Requirement</div><ul class="plain"><li><code>AC1</code> A [MessagePackObject] type with a member of a closed generic value type from a referenced assembly builds cleanly and gets a generated resolver.</li><li><code>AC3</code> No CS8785 or AD0001 warning is produced for these shapes.</li></ul></li>
+      <li><div class="overline">Claim</div><p>GenericsFormatterTests.ClosedGenericStruct_FromMetadataReference compiles a [MessagePackObject] generic struct into a metadata-only reference, uses MyGenericStruct&lt;int&gt; as a member of a [MessagePackObject] class with a [GeneratedMessagePackResolver], and asserts no warning-or-worse generator diagnostics and that the resolver hint name TempProject.MyResolver.g.cs is generated.</p></li>
+      <li><div class="overline">Cited lines</div><code class="where">tests/MessagePack.SourceGenerator.Tests/GenericsFormatterTests.cs:507-541</code><div class="muted small">at 9df83c38, resolves</div></li>
+      <li><div class="overline">Named tests</div><ul class="tests"><li><code>GenericsFormatterTests.ClosedGenericStruct_FromMetadataReference</code><div class="minis"><span class="mini s-verified">CHK2: passed</span><span class="mini s-contradicted">CHK3: failed</span></div></li></ul></li>
+      <li><div class="overline">Result</div><span class="chip s-verified"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Test-backed</span></li>
+    </ol>
+    <div class="why"><div class="overline">Why the engine gave this status</div><p>Every named test ran with the outcome the claim needs: GenericsFormatterTests.ClosedGenericStruct_FromMetadataReference.</p></div>
+    <div class="why"><div class="overline">Author’s note</div><p>This test is absent from CHK1&#x27;s run list and fails in CHK3 (AI tests on base source), so it detects the reported crash; it passes in CHK2.</p></div>
+  </div>
+</details>
+<details class="claim" id="claim-CLM6">
+  <summary>
+    <span class="chip s-verified"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Test-backed</span>
+    <code class="cid">CLM6</code>
+    <span class="ctext">GenericsFormatterTests.ClosedGenericRecordStruct_FromMetadataReference exercises the record-struct shape from a referenced assembly and asserts no warning diagnostics plus generation of App.AppResolver.g.cs.</span>
+    <span class="kind">behaviour</span>
+  </summary>
+  <div class="claimbody">
+    <ol class="chain">
+      <li><div class="overline">Requirement</div><ul class="plain"><li><code>AC1</code> A [MessagePackObject] type with a member of a closed generic value type from a referenced assembly builds cleanly and gets a generated resolver.</li><li><code>AC3</code> No CS8785 or AD0001 warning is produced for these shapes.</li></ul></li>
+      <li><div class="overline">Claim</div><p>GenericsFormatterTests.ClosedGenericRecordStruct_FromMetadataReference exercises the record-struct shape from a referenced assembly and asserts no warning diagnostics plus generation of App.AppResolver.g.cs.</p></li>
+      <li><div class="overline">Cited lines</div><code class="where">tests/MessagePack.SourceGenerator.Tests/GenericsFormatterTests.cs:551-580</code><div class="muted small">at 9df83c38, resolves</div></li>
+      <li><div class="overline">Named tests</div><ul class="tests"><li><code>GenericsFormatterTests.ClosedGenericRecordStruct_FromMetadataReference</code><div class="minis"><span class="mini s-verified">CHK2: passed</span><span class="mini s-contradicted">CHK3: failed</span></div></li></ul></li>
+      <li><div class="overline">Result</div><span class="chip s-verified"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Test-backed</span></li>
+    </ol>
+    <div class="why"><div class="overline">Why the engine gave this status</div><p>Every named test ran with the outcome the claim needs: GenericsFormatterTests.ClosedGenericRecordStruct_FromMetadataReference.</p></div>
+    <div class="why"><div class="overline">Author’s note</div><p>Fails in CHK3 (base source) and passes in CHK2.</p></div>
+  </div>
+</details>
+<details class="claim" id="claim-CLM7" open>
+  <summary>
+    <span class="chip s-contradicted"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>Contradicted</span>
+    <code class="cid">CLM7</code>
+    <span class="ctext">GenericsFormatterTests.ClosedGenericStruct_FromMetadataReference_UnkeyedMember covers a referenced generic struct with an unkeyed public member and asserts no warning diagnostics and resolver generation, i.e. the member diagnostic is not reported against the consuming compilation.</span>
+    <span class="kind">behaviour</span>
+  </summary>
+  <div class="claimbody">
+    <ol class="chain">
+      <li><div class="overline">Requirement</div><ul class="plain"><li><code>AC1</code> A [MessagePackObject] type with a member of a closed generic value type from a referenced assembly builds cleanly and gets a generated resolver.</li><li><code>AC3</code> No CS8785 or AD0001 warning is produced for these shapes.</li></ul></li>
+      <li><div class="overline">Claim</div><p>GenericsFormatterTests.ClosedGenericStruct_FromMetadataReference_UnkeyedMember covers a referenced generic struct with an unkeyed public member and asserts no warning diagnostics and resolver generation, i.e. the member diagnostic is not reported against the consuming compilation.</p></li>
+      <li><div class="overline">Cited lines</div><code class="where">tests/MessagePack.SourceGenerator.Tests/GenericsFormatterTests.cs:590-626</code><div class="muted small">at 9df83c38, resolves</div></li>
+      <li><div class="overline">Named tests</div><ul class="tests"><li><code>GenericsFormatterTests.ClosedGenericStruct_FromMetadataReference_UnkeyedMember</code><div class="minis"><span class="mini s-verified">CHK2: passed</span><span class="mini s-contradicted">CHK3: failed</span><span class="mini s-contradicted">CHK4: failed</span></div></li></ul></li>
+      <li><div class="overline">Result</div><span class="chip s-contradicted"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>Contradicted</span></li>
+    </ol>
+    <div class="why"><div class="overline">Why the engine gave this status</div><p>A named test had the opposite outcome from what the claim needs: GenericsFormatterTests.ClosedGenericStruct_FromMetadataReference_UnkeyedMember in CHK4 (failed, expected passed).</p></div>
+    <div class="why"><div class="overline">Author’s note</div><p>Fails in CHK3 (base source) and also fails in CHK4 (minimal FirstOrDefault-only fix), so it distinguishes this patch from a crash-only fix.</p></div>
+  </div>
+</details>
+<details class="claim" id="claim-CLM8">
+  <summary>
+    <span class="chip s-unsupported"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>Unsupported</span>
+    <code class="cid">CLM8</code>
+    <span class="ctext">The pre-existing trigger-matrix tests (e.g. GenericsFormatterTests.GenericsOfTFormatter, GenericsFormatterTests.Generics_Constraints_Struct, PrivateMemberAccessTests.FormatterForClassWithPrivateMembers(type: &quot;struct&quot;, version: CSharp7_3), PrivateMemberAccessTests.FormatterForClassWithPrivateMembers(type: &quot;record struct&quot;, version: CSharp10)) ran in CHK1 and CHK2 without failure.</span>
+    <span class="kind">behaviour</span>
+  </summary>
+  <div class="claimbody">
+    <ol class="chain">
+      <li><div class="overline">Requirement</div><ul class="plain"><li><code>AC2</code> The other trigger-matrix shapes (non-generic struct, generic or non-generic class, non-generic record struct) keep working as before.</li></ul></li>
+      <li><div class="overline">Claim</div><p>The pre-existing trigger-matrix tests (e.g. GenericsFormatterTests.GenericsOfTFormatter, GenericsFormatterTests.Generics_Constraints_Struct, PrivateMemberAccessTests.FormatterForClassWithPrivateMembers(type: &quot;struct&quot;, version: CSharp7_3), PrivateMemberAccessTests.FormatterForClassWithPrivateMembers(type: &quot;record struct&quot;, version: CSharp10)) ran in CHK1 and CHK2 without failure.</p></li>
+      <li><div class="overline">Cited lines</div><code class="where">tests/MessagePack.SourceGenerator.Tests/GenericsFormatterTests.cs:499-506</code><div class="muted small">at 9df83c38, resolves</div></li>
+      <li><div class="overline">Named tests</div><ul class="tests"><li><code>GenericsFormatterTests.GenericsOfTFormatter</code><div class="minis"><span class="mini s-verified">CHK1: passed</span><span class="mini s-verified">CHK2: passed</span></div></li><li><code>GenericsFormatterTests.Generics_Constraints_Struct</code><div class="minis"><span class="mini s-verified">CHK1: passed</span><span class="mini s-verified">CHK2: passed</span></div></li><li><code>PrivateMemberAccessTests.FormatterForClassWithPrivateMembers</code><div class="minis"><span class="mini s-notrun">CHK1: not in this check</span><span class="mini s-notrun">CHK2: not in this check</span></div></li></ul></li>
+      <li><div class="overline">Result</div><span class="chip s-unsupported"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>Unsupported</span></li>
+    </ol>
+    <div class="why"><div class="overline">Why the engine gave this status</div><p>Names a test that no cited check ran: PrivateMemberAccessTests.FormatterForClassWithPrivateMembers.</p></div>
+    <div class="why"><div class="overline">Author’s note</div><p>CHK1 ran 167 tests with no failures; CHK2 ran 170 with no failures.</p></div>
+  </div>
+</details></div>
+</section>
+  </details>
+</section>
+<section class="view" id="view-measurement" hidden>
+  <div class="hero compact">
+    <div class="overline">Evidence and lessons</div>
+    <h1>What we can show today, what the page records, and what is still a plan</h1>
+    <p class="lede big">Review time may fall only if reverts and incidents do not rise. Track both together; if incidents rise while review time falls, tighten routing. Nothing below is a trust score, and every figure is labelled with how it was obtained.</p>
+  </div>
+
+  <section class="sec">
+    <h2>Observed failures → design decisions</h2>
+    <ul><li>A passing suite was treated as proof of a specific claim → require named tests; still disclose relevance limits.</li>
+    <li>An expected comparison failure looked like a broken build → separate diagnostic probes from merge gates.</li>
+    <li>Real citations can support an incorrect explanation → expose exact code and keep semantic judgment human.</li>
+    <li>The receipt became a wall of text → focus on the consequential change and expand the audit trail on demand.</li></ul>
+    <p><a href="https://github.com/nicholsss/junction/blob/main/docs/DECISIONS.md">Read the short decision log</a> · No valid human acceptance recorded; no review-time savings measured.</p>
+  </section>
+  <section class="sec">
+    <h2>Measured on one change</h2>
+    <div class="twocol">
+      <div class="card">
+        <h3>Do the model’s claims hold up?</h3>
+        <p class="muted">A model run on R2283 (deepseek-4-1-flash-1017), with five wrong claims added on purpose. Statuses are computed by the engine.</p>
+        <div class="barlabel">Real claims proposed by the model (8)</div>
+        <div class="bar" role="img" aria-label="Real claims by status: Test-backed 3, Contradicted 1, Source only 4"><span class="seg s-verified" style="flex:3 1 0" title="Test-backed: 3">3</span><span class="seg s-contradicted" style="flex:1 1 0" title="Contradicted: 1">1</span><span class="seg s-source_only" style="flex:4 1 0" title="Source only: 4">4</span></div><div class="legend"><span class="lg"><i class="sw s-verified"></i>Test-backed 3</span><span class="lg"><i class="sw s-contradicted"></i>Contradicted 1</span><span class="lg"><i class="sw s-source_only"></i>Source only 4</span></div>
+        <div class="barlabel">Injected wrong claims (5)</div>
+        <div class="bar" role="img" aria-label="Injected claims by status: Contradicted 1, Unsupported 3, Link needs review 1"><span class="seg s-contradicted" style="flex:1 1 0" title="Contradicted: 1">1</span><span class="seg s-unsupported" style="flex:3 1 0" title="Unsupported: 3">3</span><span class="seg s-needs_link_review" style="flex:1 1 0" title="Link needs review: 1">1</span></div><div class="legend"><span class="lg"><i class="sw s-contradicted"></i>Contradicted 1</span><span class="lg"><i class="sw s-unsupported"></i>Unsupported 3</span><span class="lg"><i class="sw s-needs_link_review"></i>Link needs review 1</span></div>
+        <p class="big-n"><b>5 of 5</b> injected claims were not verified. <b>3 of 8</b> real claims were verified.</p>
+        <p class="muted small">One change, one model, one run. This shows the mechanism works, not that it generalises. One real claim was marked contradicted only because it also cited the probe check.</p>
+      </div>
+      <div class="card">
+        <h3>What share goes to a human?</h3>
+        <p class="muted">Triage tier of the four supplied changes, from requirement quality and diff shape only.</p>
+        <div class="bar" role="img" aria-label="Triage routing: Light 1, Standard 1, Full read 2"><span class="seg t-light" style="flex:1 1 0" title="Light: 1">1</span><span class="seg t-standard" style="flex:1 1 0" title="Standard: 1">1</span><span class="seg t-full_read" style="flex:2 1 0" title="Full read: 2">2</span></div><div class="legend"><span class="lg"><i class="sw t-light"></i>Light 1</span><span class="lg"><i class="sw t-standard"></i>Standard 1</span><span class="lg"><i class="sw t-full_read"></i>Full read 2</span></div>
+        <p class="big-n"><b>2 of 4</b> need a full read; every change still needs a named human decision.</p>
+        <p class="muted small">Four changes is a demonstration, not a rate. The thresholds are guesses until tuned on more changes.</p>
+      </div>
+    </div>
+    <details class="plainbox"><summary>All 13 claims from the model run</summary>
+      <div class="tablewrap"><table class="grid"><thead><tr><th>ID</th><th>Claim</th><th>Status</th></tr></thead><tbody><tr><td><code>CLM1</code></td><td>The constructor now wraps the caller-supplied diagnostic reporter so that every diagnostic is passed through ReportIfLocatedInCompilation before being reported. </td><td><span class="chip s-source_only"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>Source only</span></td></tr><tr><td><code>CLM2</code></td><td>ReportIfLocatedInCompilation drops a diagnostic unless its location is in source and its syntax tree belongs to the compilation being analyzed, so diagnostics for metadata-only members are not reported. </td><td><span class="chip s-source_only"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>Source only</span></td></tr><tr><td><code>CLM3</code></td><td>The MemberNeedsKey diagnostic site now uses DeclaringSyntaxReferences.FirstOrDefault()?.GetSyntax().GetLocation() instead of indexing [0], so a member with no source declaration yields a null location rather than throwing. </td><td><span class="chip s-source_only"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>Source only</span></td></tr><tr><td><code>CLM4</code></td><td>The BothStringAndIntKeyAreNull diagnostic site now obtains its location from GetPropertyIdentifierLocation, which returns null when the property has no PropertyDeclarationSyntax in source, instead of casting DeclaringSyntaxReferences[0]. </td><td><span class="chip s-source_only"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>Source only</span></td></tr><tr><td><code>CLM5</code></td><td>GenericsFormatterTests.ClosedGenericStruct_FromMetadataReference compiles a generic struct into a metadata-only reference, runs the generator and analyzers on a consumer with a [MessagePackObject] class holding MyGenericStruct&lt;int&gt;, and asserts no warning-or-worse generator diagnostics and that TempProject.MyResolver.g.cs is generated. </td><td><span class="chip s-verified"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Test-backed</span></td></tr><tr><td><code>CLM6</code></td><td>GenericsFormatterTests.ClosedGenericRecordStruct_FromMetadataReference exercises the record-struct shape from a referenced assembly and asserts the resolver App.AppResolver.g.cs is generated with no warning diagnostics. </td><td><span class="chip s-verified"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Test-backed</span></td></tr><tr><td><code>CLM7</code></td><td>GenericsFormatterTests.ClosedGenericStruct_FromMetadataReference_UnkeyedMember covers a referenced generic struct with an unkeyed public member and asserts no warning diagnostics and resolver generation, i.e. the member diagnostic is not reported against the consumer. </td><td><span class="chip s-contradicted"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>Contradicted</span></td></tr><tr><td><code>CLM8</code></td><td>The pre-existing trigger-matrix tests (e.g. GenericsFormatterTests.GenericsOfTFormatter, GenericsFormatterTests.Generics_Constraints_Struct, PrivateMemberAccessTests.FormatterForClassWithPrivateMembers(type: &quot;struct&quot;, version: CSharp7_3), PrivateMemberAccessTests.FormatterForClassWithPrivateMembers(type: &quot;record struct&quot;, version: CSharp10), PrivateMemberAccessTests.FormatterForClassWithPrivateMembers(type: &quot;class&quot;, version: CSharp7_3)) ran in CHK1 and CHK2 without failure. </td><td><span class="chip s-verified"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Test-backed</span></td></tr><tr><td><code>CLM9</code></td><td>The patch handles every closed generic shape without regression. <span class="tag warn">Injected wrong claim</span></td><td><span class="chip s-unsupported"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>Unsupported</span></td></tr><tr><td><code>CLM10</code></td><td>The change is safe for all consumers of the generator. <span class="tag warn">Injected wrong claim</span></td><td><span class="chip s-unsupported"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>Unsupported</span></td></tr><tr><td><code>CLM11</code></td><td>Referenced-assembly diagnostics are unchanged for every analyzer. <span class="tag warn">Injected wrong claim</span></td><td><span class="chip s-contradicted"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>Contradicted</span></td></tr><tr><td><code>CLM12</code></td><td>The generator never crashes on referenced generic types. <span class="tag warn">Injected wrong claim</span></td><td><span class="chip s-unsupported"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>Unsupported</span></td></tr><tr><td><code>CLM13</code></td><td>Closed generic structs from a referenced assembly build and get a resolver. <span class="tag warn">Injected wrong claim</span></td><td><span class="chip s-needs_link_review"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>Link needs review</span></td></tr></tbody></table></div>
+    </details>
+  </section>
+
+  <section class="sec">
+    <h2>Draft activity in this page</h2>
+    <p class="lede">These counters describe unsaved draft activity in the open page. They reset on reload and are not pilot results or signed decisions.</p>
+    <div class="metrics">
+      <div class="card metric"><div class="overline">Time to decision</div><div class="num" id="m-time">None recorded</div><p class="muted small">Not measured. Drafting a PR comment is not a signed decision.</p></div>
+      <div class="card metric"><div class="overline">Refusal and finding positions</div><div class="num" id="m-answers">0 chosen</div><p class="muted small">Draft selections in this page. They are not measurements or a signed decision.</p></div>
+      <div class="card metric"><div class="overline">Unknowns acknowledged</div><div class="num" id="m-unknowns">0 of 2</div><p class="muted small">Draft acknowledgements. Only a comment posted by the human in GitHub can become a decision.</p></div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <h2>The plan, not yet measured</h2>
+    <div class="tablewrap"><table class="grid">
+      <thead><tr><th>Question</th><th>Measure</th><th>State</th></tr></thead>
+      <tbody>
+        <tr><td>Does it save review time?</td><td>Time to decision with a receipt versus a plain diff, same changes, pairs of engineers.</td><td><span class="chip s-notrun"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" stroke-dasharray="3 3"/></svg>Not measured</span></td></tr>
+        <tr><td>Does it catch real defects?</td><td>Planted defects found with a receipt versus without. Needs a seeded-defect set.</td><td><span class="chip s-notrun"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" stroke-dasharray="3 3"/></svg>Not measured</span></td></tr>
+        <tr><td>Does it mislead?</td><td>False reassurance: reviewers who accept a defective change because the receipt looked clean.</td><td><span class="chip s-notrun"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" stroke-dasharray="3 3"/></svg>Not measured</span></td></tr>
+        <tr><td>Time to merge</td><td>Open to merge, split into waiting and human time. Needs a real pull-request flow.</td><td><span class="chip s-notrun"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" stroke-dasharray="3 3"/></svg>Not measured</span></td></tr>
+        <tr><td>Is routing right?</td><td>Agreement between tier and an expert’s view of the depth needed.</td><td><span class="chip s-notrun"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" stroke-dasharray="3 3"/></svg>Not measured</span></td></tr>
+        <tr><td>Do reverts and incidents rise as review time falls?</td><td>Reverts, hotfixes and incidents on accepted changes, compared with review time.</td><td><span class="chip s-notrun"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" stroke-dasharray="3 3"/></svg>Needs months</span></td></tr>
+      </tbody>
+    </table></div>
+    <div class="note"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg><span><b>Proposed first experiment.</b> Six agent-written changes, three with a planted defect, reviewed by pairs of engineers with and without a receipt. Record time, defects caught and false reassurance.</span></div>
+  </section>
+</section>
+<dialog id="principles" class="sheet">
+  <div class="sheethead"><h2>Principles, trade-offs and limits</h2><button type="button" class="btn" data-close-dialog>Close</button></div>
+  <p><b>Our recommendation:</b> automate repeatable checks and focus human judgment on consequential uncertainty.</p>
+  <p><b>Risk:</b> escalate scope changes and missing evidence. <b>Hallucination:</b> check citations and executed tests; semantic mistakes remain possible. <b>Transparency:</b> show source, provenance and gaps. <b>Confidence:</b> scope each statement rather than give a score. <b>Quality:</b> track misses and outcomes alongside time saved.</p>
+  <h3>Seven principles</h3><ol><li><b>Three kinds of statement, never mixed.</b> Executed checks (written only by the harness), AI claims (status computed), and AI refusals (questions for the human).</li><li><b>A model’s prose cannot become evidence.</b> The model never sets a status. The engine re-resolves each citation and computes it.</li><li><b>A claim is verified only through a named test that ran.</b> A whole-suite pass cannot verify a specific claim; that link goes to a human.</li><li><b>Failed, skipped and not-run checks stay visible.</b> None becomes a pass.</li><li><b>Route attention by named rules.</b> No trust score. Each review depth lists the rules that fired and what was observed.</li><li><b>Decisions are bound to a commit.</b> A different head SHA makes the receipt stale.</li><li><b>Ownership stays human.</b> No automatic approval or merge.</li></ol>
+  <h3>Trade-offs</h3><ul><li>Fewer verified claims, more human attention. That is deliberate.</li><li>Rules over a score: rules can be argued with and tuned. The cost is that thresholds are guesses until measured.</li><li>Deterministic engine, advisory model: the model adds coverage but its claims are only as good as its choice of claim.</li><li>Probes versus gates: a mislabelled probe could hide a real failure.</li></ul>
+  <h3>Limits</h3><ul><li>Relevance is not proven: the engine checks that a named test exists and ran, not that it tests what the claim says.</li><li>A citation proves the lines exist, not that they say what the claim says, so code claims reach “source only” at most.</li><li>One repository, one machine, .NET 8. The two-project repro from the issue was not run.</li><li>The crash-only comparison is a local hand-applied approximation of a reference fix; it is not a run of that reference patch.</li><li>GitHub integration runs manually. A pull_request Action and branch protection requiring review-receipt are not built. The page is a snapshot; new pushes have no successful review-receipt status, and the CLI detects stale evidence when run.</li><li>Bot and human share one login in a single-account demo; prefer a teammate’s own account. No signer has been assigned.</li><li>The 400-line threshold is untuned. Nothing here shows long-term reliability.</li></ul>
+</dialog>
+<p class="foot">Generated by engine/render.py from receipt-2283.live.json, receipt-2283.model.json and triage.json. Statuses and routing are copied from the engine’s output, not computed here.</p>
+</main>
+<script id="rr-data" type="application/json">{"receiptId": "receipt-2283-live", "requirement": "R2283", "baseSha": "32258fdbee4bcd653c79f51b4376b5103c6f4d27", "headSha": "9df83c38409c8bfad0517aebffe48211eda4a5b4", "contract": {"refusals": [{"id": "REF1", "positions": [{"id": "ref1_accept_suppression", "label": "Accept suppression of diagnostics from referenced code for this change.", "effect": "accept_compatible"}, {"id": "ref1_require_visible", "label": "Require a visible diagnostic or a narrower crash-only fix.", "effect": "changes_required"}, {"id": "ref1_owner_judgement", "label": "Needs a source-generator owner to judge the diagnostic policy.", "effect": "escalation_required"}]}, {"id": "REF2", "positions": [{"id": "ref2_accept_limitation", "label": "Accept the documentation assumption as an explicit limitation for this change.", "effect": "accept_compatible"}, {"id": "ref2_require_qualification", "label": "Require the documentation to qualify the analyzer assumption.", "effect": "changes_required"}, {"id": "ref2_owner_judgement", "label": "Needs a documentation owner to judge accuracy for consumers.", "effect": "escalation_required"}]}], "findings": ["OOR1", "OOR2"], "unknowns": ["UNK1", "UNK2"]}, "unknowns": ["UNK1", "UNK2"]}</script>
+<script>/* The human decision contract, shared by the walkthrough and the CLI tests.
+ *
+ * Pure: no DOM, no network, no storage. engine/decision.py implements the same
+ * rules. engine/decision-contract-cases.json is executed by both.
+ */
+(function (root, factory) {
+  if (typeof module === 'object' && module.exports) module.exports = factory();
+  else root.DecisionContract = factory();
+})(typeof self !== 'undefined' ? self : this, function () {
+  'use strict';
+
+  var ACTIONS = ['accept', 'changes', 'escalate'];
+  var FINDING_POSITIONS = ['accept_scope', 'change_required', 'needs_owner'];
+  var EFFECTS = ['accept_compatible', 'changes_required', 'escalation_required'];
+
+  // Only the templates this project renders count as placeholders. A broad
+  // bracket test would reject legitimate bracketed domain text.
+  var PLACEHOLDERS = [
+    '[your answer]', '[your reason]', '[reason]', '[choose a position]',
+    '[choose your position]', '[your reason and residual risk]',
+    '[reason, including residual risk]', '[refusal position]',
+    '[finding position]', '[acknowledge]'
+  ];
+  var BRACKET_ONLY = /^\s*\[[^\]]*\]\s*$/;
+
+  function error(code, message) { return { code: code, message: message }; }
+
+  function isPlaceholder(text) {
+    var lowered = String(text == null ? '' : text).trim().toLowerCase();
+    if (BRACKET_ONLY.test(String(text))) return true;
+    for (var i = 0; i < PLACEHOLDERS.length; i++) {
+      if (lowered.indexOf(PLACEHOLDERS[i]) >= 0) return true;
+    }
+    return false;
+  }
+
+  function validateDecision(action, reason, refusalPositions, findingPositions,
+                            acknowledgedUnknowns, contract) {
+    var errors = [];
+    contract = contract || {};
+    if (ACTIONS.indexOf(action) < 0) {
+      return [error('outcome_invalid', 'Outcome must be accept, changes or escalate.')];
+    }
+    reason = typeof reason === 'string' ? reason : '';
+    if (!reason.trim()) {
+      errors.push(error('reason_missing', 'A non-empty human reason is required.'));
+    } else if (isPlaceholder(reason)) {
+      errors.push(error('reason_placeholder',
+        'Replace the template placeholder in the reason with your own words.'));
+    }
+
+    var refusals = {};
+    (contract.refusals || []).forEach(function (item) { refusals[item.id] = item; });
+    var findings = contract.findings || [];
+    var unknowns = contract.unknowns || [];
+    var seenRefusals = {}, seenFindings = {}, seenUnknowns = {};
+
+    (refusalPositions || []).forEach(function (entry) {
+      var id = entry && (entry.refusalId || entry.id);
+      var position = entry && (entry.positionId || entry.position);
+      if (!Object.prototype.hasOwnProperty.call(refusals, id)) {
+        errors.push(error('refusal_unknown', (id || '?') + ': not a refusal in this receipt.'));
+        return;
+      }
+      if (seenRefusals[id]) {
+        errors.push(error('refusal_duplicate', id + ': a position was given more than once.'));
+        return;
+      }
+      seenRefusals[id] = true;
+      var options = {};
+      (refusals[id].positions || []).forEach(function (p) { options[p.id] = p; });
+      var option = options[position];
+      if (!option) {
+        var allowed = Object.keys(options).join(', ') || 'none recorded';
+        errors.push(error('refusal_position_unknown',
+          id + ": '" + position + "' is not a recorded position. Choose one of: " + allowed + '.'));
+        return;
+      }
+      if (action === 'accept' && option.effect !== 'accept_compatible') {
+        errors.push(error('refusal_position_incompatible',
+          id + ": '" + position + "' does not permit acceptance; it requires " +
+          String(option.effect).replace(/_/g, ' ') + '.'));
+      }
+    });
+
+    (findingPositions || []).forEach(function (entry) {
+      var id = entry && (entry.findingId || entry.id);
+      var position = entry && (entry.positionId || entry.position);
+      if (findings.indexOf(id) < 0) {
+        errors.push(error('finding_unknown',
+          (id || '?') + ': not an outside-requirement item in this receipt.'));
+        return;
+      }
+      if (seenFindings[id]) {
+        errors.push(error('finding_duplicate', id + ': a position was given more than once.'));
+        return;
+      }
+      seenFindings[id] = true;
+      if (FINDING_POSITIONS.indexOf(position) < 0) {
+        errors.push(error('finding_position_unknown',
+          id + ": '" + position + "' is not a recorded finding position. Choose one of: " +
+          FINDING_POSITIONS.join(', ') + '.'));
+        return;
+      }
+      if (action === 'accept' && position !== 'accept_scope') {
+        errors.push(error('finding_position_incompatible',
+          id + ": '" + position + "' does not permit acceptance; choose accept_scope."));
+      }
+    });
+
+    (acknowledgedUnknowns || []).forEach(function (id) {
+      if (unknowns.indexOf(id) < 0) {
+        errors.push(error('unknown_unknown', (id || '?') + ': not an unknown in this receipt.'));
+        return;
+      }
+      if (seenUnknowns[id]) {
+        errors.push(error('unknown_duplicate', id + ': acknowledged more than once.'));
+        return;
+      }
+      seenUnknowns[id] = true;
+    });
+
+    if (action === 'accept') {
+      Object.keys(refusals).forEach(function (id) {
+        if (!seenRefusals[id]) {
+          errors.push(error('refusal_position_missing', id + ': a position is required to accept.'));
+        }
+      });
+      findings.forEach(function (id) {
+        if (!seenFindings[id]) {
+          errors.push(error('finding_position_missing', id + ': a position is required to accept.'));
+        }
+      });
+      unknowns.forEach(function (id) {
+        if (!seenUnknowns[id]) {
+          errors.push(error('unknown_missing', id + ': acknowledge this residual unknown to accept.'));
+        }
+      });
+    }
+    return errors;
+  }
+
+  return {
+    ACTIONS: ACTIONS,
+    FINDING_POSITIONS: FINDING_POSITIONS,
+    EFFECTS: EFFECTS,
+    validateDecision: validateDecision,
+    isPlaceholder: isPlaceholder
+  };
+});
+</script>
+<script>
+(function(){
+document.documentElement.classList.add('js');
+var D=JSON.parse(document.getElementById('rr-data').textContent);
+var DC=window.DecisionContract;
+var $=function(s,r){return (r||document).querySelector(s)}, $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+var draft={outcome:'',reason:'',refusals:{},findings:{},unknowns:{},notes:{}};
+function show(){
+  var h=(location.hash||'#receipt').slice(1),v=['queue','receipt','measurement'].indexOf(h)>=0?h:'receipt';
+  if(h.indexOf('claim-')===0)v='receipt';
+  ['queue','receipt','measurement'].forEach(function(n){$('#view-'+n).hidden=n!==v});
+  $$('nav a').forEach(function(a){a.removeAttribute('aria-current');if(a.dataset.view===v)a.setAttribute('aria-current','page')});
+  if(h.indexOf('claim-')===0){var el=document.getElementById(h);if(el){reveal(el)}}else window.scrollTo(0,0);
+}
+window.addEventListener('hashchange',show);
+$$('[data-refusal] select').forEach(function(t){t.addEventListener('change',function(){draft.refusals[t.closest('[data-refusal]').dataset.refusal]=t.value;update()})});
+$$('[data-note-for]').forEach(function(i){i.addEventListener('input',function(){var id=i.dataset.noteFor;if(i.value.trim())draft.notes[id]=i.value.trim();else delete draft.notes[id];update()})});
+$$('[data-finding]').forEach(function(f){$$('input[type=radio]',f).forEach(function(r){r.addEventListener('change',function(){draft.findings[f.dataset.finding]=r.value;update()})})});
+$$('[data-unknown] input').forEach(function(c){c.addEventListener('change',function(){var id=c.closest('[data-unknown]').dataset.unknown;if(c.checked)draft.unknowns[id]=true;else delete draft.unknowns[id];update()})});
+$('[name=reason]').addEventListener('input',function(){draft.reason=this.value;update()});
+$$('[name=outcome]').forEach(function(r){r.addEventListener('change',function(){draft.outcome=this.value;update()})});
+function decisionInput(){
+  var refusals=[],findings=[];
+  D.contract.refusals.forEach(function(r){if(draft.refusals[r.id])refusals.push({refusalId:r.id,positionId:draft.refusals[r.id]})});
+  D.contract.findings.forEach(function(id){if(draft.findings[id])findings.push({findingId:id,positionId:draft.findings[id]})});
+  var acknowledged=D.contract.unknowns.filter(function(id){return !!draft.unknowns[id]});
+  return {refusalPositions:refusals,findingPositions:findings,acknowledgedUnknowns:acknowledged};
+}
+function errors(){
+  if(!draft.outcome)return [{code:'outcome_missing',message:'Choose accept, request changes, or escalate.'}];
+  var input=decisionInput();
+  return DC.validateDecision(draft.outcome,draft.reason,input.refusalPositions,input.findingPositions,input.acknowledgedUnknowns,D.contract);
+}
+/* Point each contract error at the field that can fix it, without clearing input. */
+function fieldIdFor(err){
+  if(err.code==='reason_missing'||err.code==='reason_placeholder')return 'reason';
+  if(err.code==='outcome_missing'||err.code==='outcome_invalid')return 'outcome';
+  var m=/^([A-Z]+\d+):/.exec(err.message||'');
+  return m?m[1]:'outcome';
+}
+function errorTarget(id){
+  if(id==='reason')return $('[name=reason]');
+  if(id==='outcome')return $('.outcomes');
+  return document.querySelector('[data-refusal="'+id+'"] select')||
+         document.querySelector('[data-finding="'+id+'"] fieldset')||
+         document.querySelector('[data-unknown="'+id+'"] input');
+}
+function clearFieldErrors(){
+  $$('.field-error').forEach(function(p){p.hidden=true;p.textContent='';});
+  $$('[aria-invalid=true]').forEach(function(el){el.removeAttribute('aria-invalid');});
+  $$('.refusal.invalid,.finding.invalid,.seg3.invalid').forEach(function(el){el.classList.remove('invalid');});
+}
+function showFieldErrors(errs){
+  clearFieldErrors();
+  var groups={},order=[];
+  errs.forEach(function(e){var id=fieldIdFor(e);if(!groups[id]){groups[id]=[];order.push(id);}groups[id].push(e.message);});
+  order.forEach(function(id){
+    var node=document.getElementById('err-'+id);
+    if(node){node.textContent=groups[id].join(' ');node.hidden=false;}
+    var target=errorTarget(id);
+    if(!target)return;
+    if(id==='outcome'||target.tagName==='FIELDSET'){target.classList.add('invalid');}
+    else{target.setAttribute('aria-invalid','true');}
+    if(/^(REF|OOR)/.test(id)){
+      var card=document.querySelector('[data-refusal="'+id+'"], [data-finding="'+id+'"]');
+      if(card)card.classList.add('invalid');
+    }
+  });
+  return order;
+}
+function comment(){
+  var input=decisionInput();
+  function withNote(id,line){return draft.notes[id]?line+' -- '+draft.notes[id]:line}
+  var lines=['/receipt '+(draft.outcome||'accept')+' '+(draft.reason.trim()||'[your reason]'),'Head: '+D.headSha];
+  input.refusalPositions.forEach(function(p){lines.push(withNote(p.refusalId,p.refusalId+': '+p.positionId))});
+  input.findingPositions.forEach(function(p){lines.push(withNote(p.findingId,p.findingId+': '+p.positionId))});
+  input.acknowledgedUnknowns.forEach(function(id){lines.push(id+': acknowledged')});
+  return lines.join('\n');
+}
+function update(){
+  var chosen=D.contract.refusals.filter(function(r){return draft.refusals[r.id]}).length
+           +D.contract.findings.filter(function(id){return draft.findings[id]}).length;
+  var total=D.contract.refusals.length+D.contract.findings.length;
+  var acked=D.contract.unknowns.filter(function(id){return draft.unknowns[id]}).length;
+  $$('[data-refusal]').forEach(function(x){x.classList.toggle('done',!!draft.refusals[x.dataset.refusal])});
+  $$('[data-finding]').forEach(function(x){x.classList.toggle('done',!!draft.findings[x.dataset.finding])});
+  $$('[data-unknown]').forEach(function(x){x.classList.toggle('done',!!draft.unknowns[x.dataset.unknown])});
+  $('#m-answers').textContent=chosen+' of '+total+' chosen';
+  $('#m-unknowns').textContent=acked+' of '+D.contract.unknowns.length;
+  var prompts={accept:'Your reason for accepting the listed risks',changes:'What must change, in your own words',escalate:'Why this needs a code or domain owner'};
+  var readyText={accept:'Draft ready. Posting it would record acceptance of the listed risks. Nothing is recorded here.',
+                 changes:'Draft ready. Posting it requests changes. Nothing is recorded here.',
+                 escalate:'Draft ready. Posting it routes the gap to a code or domain owner; the decision stays pending owner judgement.'};
+  $('[name=reason]').setAttribute('placeholder',prompts[draft.outcome]||'Your reason in your own words');
+  $('#comment-preview').textContent=comment();
+  var errs=errors(), ready=!!draft.outcome&&errs.length===0;
+  $('#copy-comment').disabled=!ready;
+  if(!draft.outcome){clearFieldErrors();$('#first-error').hidden=true;$('#dstate').textContent='No decision selected.'}
+  else if(ready){clearFieldErrors();$('#first-error').hidden=true;$('#dstate').textContent=readyText[draft.outcome]}
+  else{
+    var fields=showFieldErrors(errs);
+    $('#first-error').hidden=false;
+    $('#dstate').textContent=errs[0].message+(fields.length>1?' '+fields.length+' fields need attention.':'');
+  }
+  $('#dstate').classList.toggle('ready',ready);
+}
+$('#first-error').addEventListener('click',function(){
+  var errs=errors();if(!errs.length)return;
+  var target=errorTarget(fieldIdFor(errs[0]));if(!target)return;
+  var focus=target.tagName==='FIELDSET'?target.querySelector('input'):target;
+  if(target.scrollIntoView)target.scrollIntoView({block:'center'});
+  if(focus)focus.focus({preventScroll:true});
+});
+$('#decision').addEventListener('submit',async function(ev){
+  ev.preventDefault();
+  if($('#copy-comment').disabled)return;
+  try{await navigator.clipboard.writeText(comment());$('#dstate').textContent='Copied. Review and post it in the PR. No decision has been recorded.'}
+  catch(err){$('#comment-preview').closest('details').open=true;$('#dstate').textContent='Select and copy the comment shown below, then post it in the PR.'}
+});
+
+/* Expand evidence in place, including its collapsed parent. */
+function reveal(el){for(var p=el.parentElement;p;p=p.parentElement){if(p.tagName==='DETAILS')p.open=true}if(el.tagName==='DETAILS')el.open=true;el.scrollIntoView({block:'start'})}
+$$('[data-evidence]').forEach(function(b){b.addEventListener('click',function(){reveal(document.getElementById(b.dataset.evidence))})});
+/* dialogs, details links */
+$$('[data-open-dialog]').forEach(function(b){b.addEventListener('click',function(){document.getElementById(b.dataset.openDialog).showModal()})});
+$$('[data-close-dialog]').forEach(function(b){b.addEventListener('click',function(){b.closest('dialog').close()})});
+$$('[data-open]').forEach(function(a){a.addEventListener('click',function(ev){ev.preventDefault();var el=document.getElementById(a.dataset.open);reveal(el)})});
+$('#open-principles').addEventListener('click',function(){$('#principles').showModal()});
+show();update();
+})();
+</script>
+</body>
+</html>
