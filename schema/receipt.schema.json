@@ -1,0 +1,314 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/review-receipt/receipt.schema.json",
+  "title": "Review Receipt",
+  "description": "Draft v0. One receipt covers one change (base..head) against one requirement. Statuses of checks and claims are set by the harness, never by model text.",
+  "type": "object",
+  "required": ["schemaVersion", "receiptId", "requirement", "subject", "checks", "claims", "refusals", "outOfRequirement", "unknowns", "routing", "decision"],
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": { "const": "0.1" },
+    "receiptId": { "type": "string" },
+    "generatedAt": { "type": "string", "format": "date-time" },
+    "provenance": {
+      "description": "How this receipt's AI-authored parts were produced. 'fixture' means hand-written, not model output.",
+      "type": "object",
+      "required": ["claimsSource"],
+      "properties": {
+        "claimsSource": { "enum": ["model", "fixture"] },
+        "model": { "type": "string" },
+        "notes": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+
+    "requirement": {
+      "type": "object",
+      "required": ["id", "sourceUrl", "retrievedAt", "quality", "acceptanceCriteria"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "description": "The upstream issue number, for example #2283." },
+        "title": { "type": "string" },
+        "sourceUrl": { "type": "string" },
+        "retrievedAt": { "type": "string" },
+        "quality": { "enum": ["strong", "weak", "contested", "open_decision"] },
+        "acceptanceCriteria": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "text", "origin"],
+            "additionalProperties": false,
+            "properties": {
+              "id": { "type": "string", "pattern": "^AC[0-9]+$" },
+              "text": { "type": "string" },
+              "origin": { "enum": ["stated", "derived"], "description": "stated = written in the issue; derived = inferred by us and not authoritative." }
+            }
+          }
+        }
+      }
+    },
+
+    "subject": {
+      "type": "object",
+      "required": ["repository", "baseSha", "headSha", "branch"],
+      "additionalProperties": false,
+      "properties": {
+        "repository": { "type": "string" },
+        "branch": { "type": "string" },
+        "baseSha": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+        "headSha": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+        "filesChanged": { "type": "array", "items": { "type": "string" } },
+        "humanReference": { "type": "string", "description": "Optional human-written fix to compare against, for example an upstream PR URL." }
+      }
+    },
+
+    "checks": {
+      "description": "Things the harness executed (or tried to). Never written by a model.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "description", "revision", "status", "scope", "limitations"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^CHK[0-9]+$" },
+          "description": { "type": "string" },
+          "command": { "type": "string" },
+          "revision": { "type": "string", "description": "What source was tested, for example base, head, or head tests on base source." },
+          "status": { "enum": ["passed", "failed", "skipped", "unavailable", "not_run"] },
+          "role": { "enum": ["gate", "probe"], "description": "gate: must pass for the change to be acceptable (default). probe: run to learn something; a surprising result is a finding, reported through the claims it contradicts, not a broken build." },
+          "expected": { "enum": ["passed", "failed"], "description": "The outcome that would support the claims citing this check. Defaults to passed. A new test run against base source is expected to fail." },
+          "counts": {
+            "type": "object",
+            "properties": { "passed": { "type": "integer" }, "failed": { "type": "integer" }, "total": { "type": "integer" } },
+            "additionalProperties": false
+          },
+          "failures": { "type": "array", "items": { "type": "string" } },
+          "tests": {
+            "description": "Per-test results parsed from the raw log by engine/trx.py. A claim can only be verified through a named test listed here.",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["name", "outcome"],
+              "additionalProperties": false,
+              "properties": { "name": { "type": "string" }, "outcome": { "enum": ["passed", "failed", "skipped"] } }
+            }
+          },
+          "outputRef": { "type": "string", "description": "Path of the raw log. Required unless status is not_run." },
+          "ranAt": { "type": "string" },
+          "scope": { "type": "string" },
+          "limitations": { "type": "string" }
+        }
+      }
+    },
+
+    "decisionBrief": {
+      "description": "Plain-language statements a reviewer can use without reading source. Provenance separates harness observations, AI interpretation and team explanation; no statement is human testimony.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "section", "text", "provenance", "evidenceRefs"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^BRF[0-9]+$" },
+          "section": {
+            "enum": ["intent", "supported", "risk", "limit", "reliability"],
+            "description": "Where the statement belongs in the decision path. It is not a severity score."
+          },
+          "text": { "type": "string" },
+          "provenance": {
+            "enum": ["harness", "model", "team"],
+            "description": "harness = recorded observation, model = archived AI interpretation, team = connective explanation authored for this presentation."
+          },
+          "evidenceRefs": {
+            "type": "array",
+            "items": { "type": "string", "pattern": "^(AC|CHK|CLM|REF|OOR|UNK)[0-9]+$" }
+          }
+        }
+      }
+    },
+
+    "claims": {
+      "description": "Statements the AI reviewer makes. status is computed by the validator from the citation and linked checks.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "kind", "text", "citation", "requirementRefs", "checkRefs", "testRefs", "status", "statusReason"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^CLM[0-9]+$" },
+          "kind": { "enum": ["code_fact", "behaviour"], "description": "code_fact describes what the cited code says. behaviour asserts what happens at run time and needs an executed check." },
+          "text": { "type": "string" },
+          "modelNote": { "type": "string", "description": "The author's own reasoning. The engine never trusts it; statusReason is computed." },
+          "citation": {
+            "type": "object",
+            "required": ["file", "sha", "startLine", "endLine", "resolves"],
+            "additionalProperties": false,
+            "properties": {
+              "file": { "type": "string" },
+              "sha": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+              "startLine": { "type": "integer", "minimum": 1 },
+              "endLine": { "type": "integer", "minimum": 1 },
+              "resolves": { "type": "boolean", "description": "Set by the validator: does this range exist in that revision?" }
+            }
+          },
+          "requirementRefs": { "type": "array", "items": { "type": "string", "pattern": "^AC[0-9]+$" } },
+          "checkRefs": { "type": "array", "items": { "type": "string", "pattern": "^CHK[0-9]+$" } },
+          "testRefs": { "type": "array", "description": "Names of the specific tests, listed in a cited check, that exercise this claim. Without one, a behaviour claim cannot be verified.", "items": { "type": "string" } },
+          "status": { "enum": ["verified", "needs_link_review", "source_only", "unsupported", "contradicted"] },
+          "statusReason": { "type": "string" }
+        }
+      }
+    },
+
+    "refusals": {
+      "description": "Questions the AI would not decide. Each must be answered by the human before the receipt can be accepted.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "question", "whyAiRefused"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^REF[0-9]+$" },
+          "question": { "type": "string" },
+          "whyAiRefused": { "type": "string" },
+          "positions": {
+            "description": "Structured human positions for this refusal. The decision effect says whether a position permits acceptance, requires changes or requires escalation.",
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["id", "label", "effect"],
+              "additionalProperties": false,
+              "properties": {
+                "id": { "type": "string", "pattern": "^[a-z0-9_]+$" },
+                "label": { "type": "string" },
+                "effect": { "enum": ["accept_compatible", "changes_required", "escalation_required"] }
+              }
+            }
+          },
+          "relatedClaims": { "type": "array", "items": { "type": "string" } },
+          "relatedChecks": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+
+    "outOfRequirement": {
+      "description": "Changes or behaviour the requirement does not cover.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "description", "evidenceRefs"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^OOR[0-9]+$" },
+          "description": { "type": "string" },
+          "evidenceRefs": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+
+    "unknowns": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "text"],
+        "additionalProperties": false,
+        "properties": { "id": { "type": "string", "pattern": "^UNK[0-9]+$" }, "text": { "type": "string" } }
+      }
+    },
+
+    "routing": {
+      "description": "Explainable review depth. Every reason names a rule and what was observed. No numeric score.",
+      "type": "object",
+      "required": ["tier", "reasons", "humanFocus"],
+      "additionalProperties": false,
+      "properties": {
+        "tier": { "enum": ["light", "standard", "full_read"] },
+        "reasons": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["rule", "observed"],
+            "additionalProperties": false,
+            "properties": { "rule": { "type": "string" }, "observed": { "type": "string" } }
+          }
+        },
+        "humanFocus": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["file", "why"],
+            "additionalProperties": false,
+            "properties": { "file": { "type": "string" }, "lines": { "type": "string" }, "why": { "type": "string" } }
+          }
+        }
+      }
+    },
+
+    "decision": {
+      "type": "object",
+      "required": ["status"],
+      "additionalProperties": false,
+      "properties": {
+        "status": { "enum": ["pending", "accepted", "changes_requested", "escalated"] },
+        "owner": { "type": "string", "description": "Named human. Required unless status is pending." },
+        "reason": { "type": "string" },
+        "refusalAnswers": {
+          "description": "Historical free-text answers. New decisions record structured positions instead.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["refusalId", "answer"],
+            "additionalProperties": false,
+            "properties": { "refusalId": { "type": "string" }, "answer": { "type": "string" } }
+          }
+        },
+        "refusalPositions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["refusalId", "positionId"],
+            "additionalProperties": false,
+            "properties": {
+              "refusalId": { "type": "string", "pattern": "^REF[0-9]+$" },
+              "positionId": { "type": "string", "pattern": "^[a-z0-9_]+$" },
+              "note": { "type": "string", "description": "Optional human note. Never generated on the reviewer's behalf." }
+            }
+          }
+        },
+        "findingPositions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["findingId", "positionId"],
+            "additionalProperties": false,
+            "properties": {
+              "findingId": { "type": "string", "pattern": "^OOR[0-9]+$" },
+              "positionId": { "enum": ["accept_scope", "change_required", "needs_owner"] },
+              "note": { "type": "string", "description": "Optional human note. Never generated on the reviewer's behalf." }
+            }
+          }
+        },
+        "acceptedUnknownRefs": {
+          "description": "Unknowns the named human explicitly acknowledged when accepting.",
+          "type": "array",
+          "items": { "type": "string", "pattern": "^UNK[0-9]+$" }
+        },
+        "acceptedResidualRisk": {
+          "description": "Historical free-text residual risk list. New decisions acknowledge unknown IDs instead.",
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "sourceCommentUrl": { "type": "string", "description": "GitHub comment containing the actual human decision." },
+        "signedAt": { "type": "string" },
+        "boundToHeadSha": { "type": "string", "pattern": "^[0-9a-f]{40}$" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "status": { "enum": ["accepted", "changes_requested", "escalated"] } }, "required": ["status"] },
+          "then": { "required": ["owner", "reason", "signedAt", "boundToHeadSha"] }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,35 @@
+# Install on the DEFAULT branch of nicholsss/junction26-messagepack-csharp
+# as .github/workflows/review-events.yml. This is a bridge, never PR-head code.
+name: Forward review events
+on:
+  issue_comment:
+    types: [created]
+  pull_request:
+    types: [opened, synchronize, reopened]
+permissions:
+  contents: read
+jobs:
+  forward:
+    if: >-
+      github.repository == 'nicholsss/junction26-messagepack-csharp' &&
+      ((github.event_name == 'issue_comment' && github.event.issue.pull_request &&
+        github.event.issue.number == 1 && startsWith(github.event.comment.body, '/receipt ')) ||
+       (github.event_name == 'pull_request' && github.event.pull_request.number == 1))
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/create-github-app-token@v3
+        id: app
+        with:
+          app-id: ${{ vars.REVIEW_APP_ID }}
+          private-key: ${{ secrets.REVIEW_APP_PRIVATE_KEY }}
+          owner: nicholsss
+          repositories: junction
+      - name: Forward identifiers only
+        env:
+          GH_TOKEN: ${{ steps.app.outputs.token }}
+          EVENT_REPO: ${{ github.repository }}
+          EVENT_PR: ${{ github.event.issue.number || github.event.pull_request.number }}
+          EVENT_COMMENT: ${{ github.event.comment.id }}
+        run: |
+          gh workflow run review-event.yml --repo nicholsss/junction --ref main \
+            -f repository="$EVENT_REPO" -f pr="$EVENT_PR" -f comment_id="$EVENT_COMMENT"

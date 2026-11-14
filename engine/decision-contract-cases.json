@@ -1,0 +1,399 @@
+{
+  "description": "Shared decision-contract cases. Both engine/test_decision.py and engine/test_decision.js must produce exactly these error codes. No case is a human decision; they are contract examples.",
+  "contract": {
+    "refusals": [
+      {
+        "id": "REF1",
+        "positions": [
+          { "id": "ref1_accept_suppression", "label": "Accept suppression for this change", "effect": "accept_compatible" },
+          { "id": "ref1_require_visible", "label": "Require a visible diagnostic or a narrower fix", "effect": "changes_required" },
+          { "id": "ref1_owner_judgement", "label": "Needs a source-generator owner", "effect": "escalation_required" }
+        ]
+      },
+      {
+        "id": "REF2",
+        "positions": [
+          { "id": "ref2_accept_limitation", "label": "Accept the documented limitation", "effect": "accept_compatible" },
+          { "id": "ref2_require_qualification", "label": "Require qualified documentation", "effect": "changes_required" },
+          { "id": "ref2_owner_judgement", "label": "Needs a documentation owner", "effect": "escalation_required" }
+        ]
+      }
+    ],
+    "findings": ["OOR1", "OOR2"],
+    "unknowns": ["UNK1", "UNK2"]
+  },
+  "cases": [
+    {
+      "name": "accept with every position and unknown acknowledged",
+      "input": {
+        "action": "accept",
+        "reason": "I accept the recorded suppression and documentation risks for this change.",
+        "refusalPositions": [
+          { "refusalId": "REF1", "positionId": "ref1_accept_suppression" },
+          { "refusalId": "REF2", "positionId": "ref2_accept_limitation" }
+        ],
+        "findingPositions": [
+          { "findingId": "OOR1", "positionId": "accept_scope" },
+          { "findingId": "OOR2", "positionId": "accept_scope" }
+        ],
+        "acknowledgedUnknowns": ["UNK1", "UNK2"]
+      },
+      "valid": true,
+      "errors": []
+    },
+    {
+      "name": "accept rejects a change-required refusal position",
+      "input": {
+        "action": "accept",
+        "reason": "Accepting the other risks.",
+        "refusalPositions": [
+          { "refusalId": "REF1", "positionId": "ref1_require_visible" },
+          { "refusalId": "REF2", "positionId": "ref2_accept_limitation" }
+        ],
+        "findingPositions": [
+          { "findingId": "OOR1", "positionId": "accept_scope" },
+          { "findingId": "OOR2", "positionId": "accept_scope" }
+        ],
+        "acknowledgedUnknowns": ["UNK1", "UNK2"]
+      },
+      "valid": false,
+      "errors": ["refusal_position_incompatible"]
+    },
+    {
+      "name": "accept rejects an escalation-required refusal position",
+      "input": {
+        "action": "accept",
+        "reason": "Accepting the other risks.",
+        "refusalPositions": [
+          { "refusalId": "REF1", "positionId": "ref1_owner_judgement" },
+          { "refusalId": "REF2", "positionId": "ref2_accept_limitation" }
+        ],
+        "findingPositions": [
+          { "findingId": "OOR1", "positionId": "accept_scope" },
+          { "findingId": "OOR2", "positionId": "accept_scope" }
+        ],
+        "acknowledgedUnknowns": ["UNK1", "UNK2"]
+      },
+      "valid": false,
+      "errors": ["refusal_position_incompatible"]
+    },
+    {
+      "name": "accept rejects a change-required finding position",
+      "input": {
+        "action": "accept",
+        "reason": "Accepting the other risks.",
+        "refusalPositions": [
+          { "refusalId": "REF1", "positionId": "ref1_accept_suppression" },
+          { "refusalId": "REF2", "positionId": "ref2_accept_limitation" }
+        ],
+        "findingPositions": [
+          { "findingId": "OOR1", "positionId": "change_required" },
+          { "findingId": "OOR2", "positionId": "accept_scope" }
+        ],
+        "acknowledgedUnknowns": ["UNK1", "UNK2"]
+      },
+      "valid": false,
+      "errors": ["finding_position_incompatible"]
+    },
+    {
+      "name": "accept rejects a needs-owner finding position",
+      "input": {
+        "action": "accept",
+        "reason": "Accepting the other risks.",
+        "refusalPositions": [
+          { "refusalId": "REF1", "positionId": "ref1_accept_suppression" },
+          { "refusalId": "REF2", "positionId": "ref2_accept_limitation" }
+        ],
+        "findingPositions": [
+          { "findingId": "OOR1", "positionId": "needs_owner" },
+          { "findingId": "OOR2", "positionId": "accept_scope" }
+        ],
+        "acknowledgedUnknowns": ["UNK1", "UNK2"]
+      },
+      "valid": false,
+      "errors": ["finding_position_incompatible"]
+    },
+    {
+      "name": "accept requires a position for every refusal",
+      "input": {
+        "action": "accept",
+        "reason": "Accepting the risks.",
+        "refusalPositions": [
+          { "refusalId": "REF2", "positionId": "ref2_accept_limitation" }
+        ],
+        "findingPositions": [
+          { "findingId": "OOR1", "positionId": "accept_scope" },
+          { "findingId": "OOR2", "positionId": "accept_scope" }
+        ],
+        "acknowledgedUnknowns": ["UNK1", "UNK2"]
+      },
+      "valid": false,
+      "errors": ["refusal_position_missing"]
+    },
+    {
+      "name": "accept requires a position for every finding",
+      "input": {
+        "action": "accept",
+        "reason": "Accepting the risks.",
+        "refusalPositions": [
+          { "refusalId": "REF1", "positionId": "ref1_accept_suppression" },
+          { "refusalId": "REF2", "positionId": "ref2_accept_limitation" }
+        ],
+        "findingPositions": [
+          { "findingId": "OOR1", "positionId": "accept_scope" }
+        ],
+        "acknowledgedUnknowns": ["UNK1", "UNK2"]
+      },
+      "valid": false,
+      "errors": ["finding_position_missing"]
+    },
+    {
+      "name": "accept requires every unknown to be acknowledged",
+      "input": {
+        "action": "accept",
+        "reason": "Accepting the risks.",
+        "refusalPositions": [
+          { "refusalId": "REF1", "positionId": "ref1_accept_suppression" },
+          { "refusalId": "REF2", "positionId": "ref2_accept_limitation" }
+        ],
+        "findingPositions": [
+          { "findingId": "OOR1", "positionId": "accept_scope" },
+          { "findingId": "OOR2", "positionId": "accept_scope" }
+        ],
+        "acknowledgedUnknowns": ["UNK1"]
+      },
+      "valid": false,
+      "errors": ["unknown_missing"]
+    },
+    {
+      "name": "unknown refusal position is rejected",
+      "input": {
+        "action": "accept",
+        "reason": "Accepting the risks.",
+        "refusalPositions": [
+          { "refusalId": "REF1", "positionId": "ref1_not_a_position" },
+          { "refusalId": "REF2", "positionId": "ref2_accept_limitation" }
+        ],
+        "findingPositions": [
+          { "findingId": "OOR1", "positionId": "accept_scope" },
+          { "findingId": "OOR2", "positionId": "accept_scope" }
+        ],
+        "acknowledgedUnknowns": ["UNK1", "UNK2"]
+      },
+      "valid": false,
+      "errors": ["refusal_position_unknown"]
+    },
+    {
+      "name": "unknown refusal id is rejected",
+      "input": {
+        "action": "changes",
+        "reason": "The filter hides diagnostics the consumer cannot investigate.",
+        "refusalPositions": [
+          { "refusalId": "REF9", "positionId": "ref1_accept_suppression" }
+        ],
+        "findingPositions": [],
+        "acknowledgedUnknowns": []
+      },
+      "valid": false,
+      "errors": ["refusal_unknown"]
+    },
+    {
+      "name": "duplicate refusal position is rejected",
+      "input": {
+        "action": "changes",
+        "reason": "The filter hides diagnostics.",
+        "refusalPositions": [
+          { "refusalId": "REF1", "positionId": "ref1_require_visible" },
+          { "refusalId": "REF1", "positionId": "ref1_accept_suppression" }
+        ],
+        "findingPositions": [],
+        "acknowledgedUnknowns": []
+      },
+      "valid": false,
+      "errors": ["refusal_duplicate"]
+    },
+    {
+      "name": "unknown finding id is rejected",
+      "input": {
+        "action": "changes",
+        "reason": "The extra scope needs its own requirement.",
+        "refusalPositions": [],
+        "findingPositions": [
+          { "findingId": "OOR9", "positionId": "change_required" }
+        ],
+        "acknowledgedUnknowns": []
+      },
+      "valid": false,
+      "errors": ["finding_unknown"]
+    },
+    {
+      "name": "unknown finding position is rejected",
+      "input": {
+        "action": "changes",
+        "reason": "The extra scope needs its own requirement.",
+        "refusalPositions": [],
+        "findingPositions": [
+          { "findingId": "OOR1", "positionId": "real" }
+        ],
+        "acknowledgedUnknowns": []
+      },
+      "valid": false,
+      "errors": ["finding_position_unknown"]
+    },
+    {
+      "name": "duplicate finding position is rejected",
+      "input": {
+        "action": "changes",
+        "reason": "The extra scope needs its own requirement.",
+        "refusalPositions": [],
+        "findingPositions": [
+          { "findingId": "OOR1", "positionId": "change_required" },
+          { "findingId": "OOR1", "positionId": "accept_scope" }
+        ],
+        "acknowledgedUnknowns": []
+      },
+      "valid": false,
+      "errors": ["finding_duplicate"]
+    },
+    {
+      "name": "unknown acknowledgement id is rejected",
+      "input": {
+        "action": "accept",
+        "reason": "Accepting the risks.",
+        "refusalPositions": [
+          { "refusalId": "REF1", "positionId": "ref1_accept_suppression" },
+          { "refusalId": "REF2", "positionId": "ref2_accept_limitation" }
+        ],
+        "findingPositions": [
+          { "findingId": "OOR1", "positionId": "accept_scope" },
+          { "findingId": "OOR2", "positionId": "accept_scope" }
+        ],
+        "acknowledgedUnknowns": ["UNK1", "UNK2", "UNK9"]
+      },
+      "valid": false,
+      "errors": ["unknown_unknown"]
+    },
+    {
+      "name": "duplicate acknowledgement is rejected",
+      "input": {
+        "action": "accept",
+        "reason": "Accepting the risks.",
+        "refusalPositions": [
+          { "refusalId": "REF1", "positionId": "ref1_accept_suppression" },
+          { "refusalId": "REF2", "positionId": "ref2_accept_limitation" }
+        ],
+        "findingPositions": [
+          { "findingId": "OOR1", "positionId": "accept_scope" },
+          { "findingId": "OOR2", "positionId": "accept_scope" }
+        ],
+        "acknowledgedUnknowns": ["UNK1", "UNK1", "UNK2"]
+      },
+      "valid": false,
+      "errors": ["unknown_duplicate"]
+    },
+    {
+      "name": "request changes needs only a reason",
+      "input": {
+        "action": "changes",
+        "reason": "Suppressing dependent diagnostics is a policy change we should not make here.",
+        "refusalPositions": [],
+        "findingPositions": [],
+        "acknowledgedUnknowns": []
+      },
+      "valid": true,
+      "errors": []
+    },
+    {
+      "name": "request changes accepts partial valid positions",
+      "input": {
+        "action": "changes",
+        "reason": "The filter hides diagnostics.",
+        "refusalPositions": [
+          { "refusalId": "REF1", "positionId": "ref1_require_visible" }
+        ],
+        "findingPositions": [
+          { "findingId": "OOR1", "positionId": "change_required" }
+        ],
+        "acknowledgedUnknowns": ["UNK1"]
+      },
+      "valid": true,
+      "errors": []
+    },
+    {
+      "name": "escalate needs only a reason",
+      "input": {
+        "action": "escalate",
+        "reason": "A source-generator owner must judge whether dependency diagnostics may be suppressed.",
+        "refusalPositions": [],
+        "findingPositions": [],
+        "acknowledgedUnknowns": []
+      },
+      "valid": true,
+      "errors": []
+    },
+    {
+      "name": "escalate accepts partial valid positions",
+      "input": {
+        "action": "escalate",
+        "reason": "A documentation owner must judge accuracy for consumers.",
+        "refusalPositions": [
+          { "refusalId": "REF2", "positionId": "ref2_owner_judgement" }
+        ],
+        "findingPositions": [
+          { "findingId": "OOR2", "positionId": "needs_owner" }
+        ],
+        "acknowledgedUnknowns": []
+      },
+      "valid": true,
+      "errors": []
+    },
+    {
+      "name": "missing reason is rejected",
+      "input": {
+        "action": "changes",
+        "reason": "   ",
+        "refusalPositions": [],
+        "findingPositions": [],
+        "acknowledgedUnknowns": []
+      },
+      "valid": false,
+      "errors": ["reason_missing"]
+    },
+    {
+      "name": "template placeholder reason is rejected",
+      "input": {
+        "action": "changes",
+        "reason": "[your reason]",
+        "refusalPositions": [],
+        "findingPositions": [],
+        "acknowledgedUnknowns": []
+      },
+      "valid": false,
+      "errors": ["reason_placeholder"]
+    },
+    {
+      "name": "legitimate bracketed domain text is not a placeholder",
+      "input": {
+        "action": "changes",
+        "reason": "The [FromMetadata] scenario still hides a diagnostic; that needs its own requirement.",
+        "refusalPositions": [],
+        "findingPositions": [],
+        "acknowledgedUnknowns": []
+      },
+      "valid": true,
+      "errors": []
+    },
+    {
+      "name": "invalid outcome is rejected",
+      "input": {
+        "action": "approve",
+        "reason": "Looks fine.",
+        "refusalPositions": [],
+        "findingPositions": [],
+        "acknowledgedUnknowns": []
+      },
+      "valid": false,
+      "errors": ["outcome_invalid"]
+    }
+  ]
+}

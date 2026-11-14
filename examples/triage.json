@@ -1,0 +1,95 @@
+[
+  {
+    "id": "#2283",
+    "title": "Generator and analyzer crash on a closed generic struct from a referenced assembly",
+    "head": "9df83c38",
+    "quality": "strong",
+    "tier": "light",
+    "files": {
+      "source": 1,
+      "tests": 1,
+      "docs": 2,
+      "generated": 0
+    },
+    "lines": {
+      "source": 29,
+      "tests": 189,
+      "docs": 10,
+      "generated": 0
+    },
+    "reasons": [
+      "strong requirement and a small source change"
+    ],
+    "note": "Repro, expected behaviour and trigger matrix in the issue."
+  },
+  {
+    "id": "#2234",
+    "title": "Analyzer does not work with SuppressSourceGeneration",
+    "head": "9007cee1",
+    "quality": "weak",
+    "tier": "standard",
+    "files": {
+      "source": 1,
+      "tests": 2,
+      "docs": 1,
+      "generated": 0
+    },
+    "lines": {
+      "source": 22,
+      "tests": 230,
+      "docs": 14,
+      "generated": 0
+    },
+    "reasons": [
+      "weak requirement"
+    ],
+    "note": "One-sentence report, no expected behaviour."
+  },
+  {
+    "id": "#2129",
+    "title": "Generate a formatter for a type in a referenced assembly",
+    "head": "083afd99",
+    "quality": "contested",
+    "tier": "full_read",
+    "files": {
+      "source": 12,
+      "tests": 9,
+      "docs": 7,
+      "generated": 0
+    },
+    "lines": {
+      "source": 458,
+      "tests": 422,
+      "docs": 163,
+      "generated": 0
+    },
+    "reasons": [
+      "contested requirement",
+      "458 changed source lines (limit 400)"
+    ],
+    "note": "Maintainer proposed surrogate types; design alignment unchecked."
+  },
+  {
+    "id": "#2297",
+    "title": "ExcludeFromCodeCoverage on generated code",
+    "head": "a0aa5ab2",
+    "quality": "open_decision",
+    "tier": "full_read",
+    "files": {
+      "source": 13,
+      "tests": 1,
+      "docs": 1,
+      "generated": 222
+    },
+    "lines": {
+      "source": 49,
+      "tests": 130,
+      "docs": 3,
+      "generated": 1210
+    },
+    "reasons": [
+      "open product decision: a human decides whether it is wanted"
+    ],
+    "note": "Maintainer has not said whether the feature is wanted."
+  }
+]

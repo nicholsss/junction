@@ -1,0 +1,50 @@
+[
+  {
+    "requirement": "#2283",
+    "repository": "nicholsss/junction26-messagepack-csharp",
+    "number": 1,
+    "url": "https://github.com/nicholsss/junction26-messagepack-csharp/pull/1",
+    "branch": "ju26-issue-2283",
+    "baseBranch": "receipt-base-2283",
+    "baseSha": "32258fdbee4bcd653c79f51b4376b5103c6f4d27",
+    "headSha": "9df83c38409c8bfad0517aebffe48211eda4a5b4",
+    "status": "pending",
+    "receiptCommentUrl": "https://github.com/nicholsss/junction26-messagepack-csharp/pull/1#issuecomment-6877892483"
+  },
+  {
+    "requirement": "#2234",
+    "repository": "nicholsss/junction26-messagepack-csharp",
+    "number": 2,
+    "url": "https://github.com/nicholsss/junction26-messagepack-csharp/pull/2",
+    "branch": "ju26-issue-2234",
+    "baseBranch": "receipt-base-2234",
+    "baseSha": "32258fdbee4bcd653c79f51b4376b5103c6f4d27",
+    "headSha": "9007cee1163c4a274fd60c3cc20c21ae63622786",
+    "status": "pending",
+    "receiptCommentUrl": "https://github.com/nicholsss/junction26-messagepack-csharp/pull/2#issuecomment-6877893577"
+  },
+  {
+    "requirement": "#2129",
+    "repository": "nicholsss/junction26-messagepack-csharp",
+    "number": 3,
+    "url": "https://github.com/nicholsss/junction26-messagepack-csharp/pull/3",
+    "branch": "ju26-issue-2129",
+    "baseBranch": "receipt-base-2129",
+    "baseSha": "32258fdbee4bcd653c79f51b4376b5103c6f4d27",
+    "headSha": "083afd994c1c9a994cb2cd5aa0b6ad805a621457",
+    "status": "pending",
+    "receiptCommentUrl": "https://github.com/nicholsss/junction26-messagepack-csharp/pull/3#issuecomment-6877894819"
+  },
+  {
+    "requirement": "#2297",
+    "repository": "nicholsss/junction26-messagepack-csharp",
+    "number": 4,
+    "url": "https://github.com/nicholsss/junction26-messagepack-csharp/pull/4",
+    "branch": "ju26-issue-2297",
+    "baseBranch": "receipt-base-2297",
+    "baseSha": "32258fdbee4bcd653c79f51b4376b5103c6f4d27",
+    "headSha": "a0aa5ab2de7f5a669d97e37184a89034c1de82b6",
+    "status": "pending",
+    "receiptCommentUrl": "https://github.com/nicholsss/junction26-messagepack-csharp/pull/4#issuecomment-6877895974"
+  }
+]

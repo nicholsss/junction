@@ -1,0 +1,6 @@
+{
+  "name": "junction-review-workspace",
+  "private": true,
+  "scripts": {"test:browser": "node engine/test_browser.cjs"},
+  "devDependencies": {"playwright": "1.61.0"}
+}

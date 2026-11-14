@@ -1,0 +1,6 @@
+{
+  "#2283": { "branch": "ju26-issue-2283", "quality": "strong", "note": "Repro, expected behaviour and trigger matrix in the issue." },
+  "#2234": { "branch": "ju26-issue-2234", "quality": "weak", "note": "One-sentence report, no expected behaviour." },
+  "#2129": { "branch": "ju26-issue-2129", "quality": "contested", "note": "Maintainer proposed surrogate types; design alignment unchecked." },
+  "#2297": { "branch": "ju26-issue-2297", "quality": "open_decision", "note": "Maintainer has not said whether the feature is wanted." }
+}

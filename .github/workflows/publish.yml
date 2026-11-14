@@ -1,0 +1,41 @@
+name: Publish review workspace
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: review-pages
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -r engine/requirements.txt
+      - run: python schema/validate.py examples/receipt-2283.live.json
+      - run: python engine/render.py
+      - name: Prepare public assets only
+        run: |
+          mkdir .pages-build
+          cp walkthrough/index.html .pages-build/index.html
+          touch .pages-build/.nojekyll
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .pages-build
+  deploy:
+    needs: build
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/deploy-pages@v4
+        id: deployment

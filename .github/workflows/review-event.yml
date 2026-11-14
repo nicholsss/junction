@@ -1,0 +1,67 @@
+name: Process demo review event
+on:
+  workflow_dispatch:
+    inputs:
+      repository:
+        required: true
+        type: string
+      pr:
+        required: true
+        type: string
+      comment_id:
+        required: false
+        type: string
+permissions:
+  contents: read
+# All jobs write the same receipt/registry; serialize across both event types.
+concurrency:
+  group: recorded-review-decisions
+  cancel-in-progress: false
+jobs:
+  process:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: false
+      - uses: actions/create-github-app-token@v3
+        id: app
+        with:
+          app-id: ${{ vars.REVIEW_APP_ID }}
+          private-key: ${{ secrets.REVIEW_APP_PRIVATE_KEY }}
+          owner: nicholsss
+          repositories: |
+            junction
+            junction26-messagepack-csharp
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -r engine/requirements.txt
+      - name: Validate and apply the exact GitHub event
+        env:
+          GH_TOKEN: ${{ steps.app.outputs.token }}
+          EVENT_REPO: ${{ inputs.repository }}
+          EVENT_PR: ${{ inputs.pr }}
+          EVENT_COMMENT: ${{ inputs.comment_id }}
+          REVIEW_RUN_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          args=(--repo "$EVENT_REPO" --pr "$EVENT_PR")
+          if [ -n "$EVENT_COMMENT" ]; then args+=(--comment-id "$EVENT_COMMENT"); fi
+          python engine/automation.py "${args[@]}"
+          python schema/validate.py examples/receipt-2283.live.json
+          python engine/render.py
+      - name: Persist the decision and publish
+        env:
+          GH_TOKEN: ${{ steps.app.outputs.token }}
+        run: |
+          gh auth setup-git
+          git remote set-url origin https://github.com/nicholsss/junction.git
+          git config user.name 'Review Receipt automation'
+          git config user.email 'review-receipt@users.noreply.github.com'
+          git add examples/receipt-2283.live.json examples/automation-state.json docs/pull-requests.json walkthrough/index.html
+          if ! git diff --cached --quiet; then
+            git commit -m 'Record authenticated review event'
+            git push origin HEAD:main
+          fi
+          gh workflow run publish.yml --repo nicholsss/junction --ref main

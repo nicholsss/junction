@@ -1,0 +1,6 @@
+{
+  "automationLogin": "junction-review-receipt[bot]",
+  "policy": "public_demo",
+  "reviewers": {},
+  "receiptPublishers": ["nicholsss", "junction-review-receipt[bot]"]
+}
